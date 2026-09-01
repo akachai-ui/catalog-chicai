@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Globe, Settings, BookOpen, Sparkles } from "lucide-react";
+import { Globe, Settings, Sparkles } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Language } from "@/lib/i18n";
 
@@ -51,16 +51,6 @@ export const Navbar: React.FC<NavbarProps> = () => {
 
           {/* Right Navigation & Action Cluster */}
           <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
-            {/* Master Catalog Action Link */}
-            <Link
-              href="/catalog"
-              className="p-2 sm:px-3.5 sm:py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-xl transition-all cursor-pointer border border-slate-200/80 flex items-center gap-1.5 active:scale-95 touch-manipulation"
-              title={t.masterCatalogBtn}
-            >
-              <BookOpen className="w-4 h-4 text-[#219990]" />
-              <span className="hidden lg:inline">{t.masterCatalogBtn}</span>
-            </Link>
-
             {/* Direct LINE Contact Button */}
             <a
               href="https://line.me/ti/p/htYYhK-o1q"

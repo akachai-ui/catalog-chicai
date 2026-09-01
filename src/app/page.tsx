@@ -15,7 +15,6 @@ import {
   Package,
   Layers,
   Sparkles,
-  BookOpen,
   MapPin,
   Phone,
   Mail,
@@ -150,18 +149,10 @@ export default function HomePage() {
             {/* Action Buttons */}
             <div className="mt-6 sm:mt-7 flex flex-wrap items-center gap-2.5 sm:gap-3.5">
               <Link
-                href="/catalog"
-                className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 bg-white text-[#145853] hover:bg-emerald-50 text-xs font-bold rounded-xl shadow-lg transition cursor-pointer hover:scale-[1.02] active:scale-95 touch-manipulation"
-              >
-                <BookOpen className="w-4 h-4 text-[#219990]" />
-                <span>{t.masterCatalogBtn}</span>
-              </Link>
-
-              <Link
                 href="/admin"
-                className="inline-flex items-center justify-center gap-2 px-3.5 sm:px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold rounded-xl border border-white/20 transition cursor-pointer backdrop-blur-xs active:scale-95 touch-manipulation"
+                className="inline-flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 bg-white/15 hover:bg-white/25 text-white text-xs font-semibold rounded-xl border border-white/20 transition cursor-pointer backdrop-blur-xs active:scale-95 touch-manipulation shadow-md"
               >
-                <Sparkles className="w-3.5 h-3.5 text-emerald-200" />
+                <Sparkles className="w-4 h-4 text-emerald-200" />
                 <span>{t.adminLink}</span>
               </Link>
             </div>
