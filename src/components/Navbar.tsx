@@ -1,0 +1,176 @@
+"use client";
+
+import React, { useState } from "react";
+import Link from "next/link";
+import { Search, FileText, Globe, Settings, BookOpen, X, Sparkles } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { Language } from "@/lib/i18n";
+
+interface NavbarProps {
+  searchQuery: string;
+  onSearchChange: (q: string) => void;
+  isFirebaseActive?: boolean;
+}
+
+export const Navbar: React.FC<NavbarProps> = ({
+  searchQuery,
+  onSearchChange,
+}) => {
+  const { lang, setLang, t } = useLanguage();
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+
+  const languages: { code: Language; short: string; label: string }[] = [
+    { code: "th", short: "TH", label: "ไทย" },
+    { code: "zh", short: "中", label: "中文" },
+    { code: "en", short: "EN", label: "EN" },
+  ];
+
+  return (
+    <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-slate-200/80 transition-all">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-20 gap-4 lg:gap-6">
+          {/* Brand Logo & Corporate Info */}
+          <Link href="/" className="flex items-center gap-3.5 group shrink-0">
+            <div className="relative flex items-center justify-center h-12 w-12 rounded-2xl bg-white p-1 border border-slate-200/90 shadow-xs group-hover:border-[#219990]/40 group-hover:shadow-md transition-all duration-300">
+              <img
+                src="/chicailogo.jpg"
+                alt="ฉี ไฉ่ อิเล็คทริค"
+                className="h-full w-full object-contain rounded-xl"
+              />
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <span className="text-base sm:text-lg font-black text-slate-900 tracking-tight group-hover:text-[#219990] transition-colors">
+                  {t.companyName}
+                </span>
+                <span className="hidden xl:inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-[#219990]/10 text-[#145853] border border-[#219990]/20 uppercase tracking-wide">
+                  <Sparkles className="w-2.5 h-2.5 text-[#219990]" />
+                  {t.b2bBadge}
+                </span>
+              </div>
+              <div className="text-[11px] font-semibold text-slate-400 tracking-wide font-mono uppercase">
+                {t.companySubName}
+              </div>
+            </div>
+          </Link>
+
+          {/* Centralized Search Bar (Responsive & Fluid) */}
+          <div className="flex-1 max-w-sm hidden md:block">
+            <div
+              className={`relative flex items-center transition-all duration-200 ${
+                isSearchFocused ? "scale-[1.02]" : ""
+              }`}
+            >
+              <Search
+                className={`absolute left-3.5 w-4 h-4 transition-colors ${
+                  isSearchFocused ? "text-[#219990]" : "text-slate-400"
+                }`}
+              />
+              <input
+                type="text"
+                placeholder={t.searchPlaceholder}
+                value={searchQuery}
+                onFocus={() => setIsSearchFocused(true)}
+                onBlur={() => setIsSearchFocused(false)}
+                onChange={(e) => onSearchChange(e.target.value)}
+                className={`w-full pl-10 pr-9 py-2.5 text-xs rounded-2xl outline-hidden transition-all duration-200 ${
+                  isSearchFocused
+                    ? "bg-white border-2 border-[#219990] shadow-lg shadow-[#219990]/10 text-slate-900"
+                    : "bg-slate-100/90 hover:bg-slate-100 border border-slate-200 text-slate-700"
+                }`}
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => onSearchChange("")}
+                  className="absolute right-3 p-0.5 rounded-full hover:bg-slate-200 text-slate-400 hover:text-slate-600 transition cursor-pointer"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Right Navigation & Action Cluster */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            {/* Master Catalog Action Link */}
+            <Link
+              href="/catalog"
+              className="inline-flex items-center gap-2 px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-xl transition-all cursor-pointer border border-slate-200/80"
+              title={t.masterCatalogBtn}
+            >
+              <BookOpen className="w-4 h-4 text-[#219990]" />
+              <span className="hidden lg:inline">{t.masterCatalogBtn}</span>
+            </Link>
+
+            {/* Direct LINE Contact Button */}
+            <a
+              href="https://line.me/ti/p/htYYhK-o1q"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#06C755] hover:bg-[#05b34c] text-white text-xs font-bold rounded-xl shadow-md shadow-[#06C755]/25 transition cursor-pointer"
+              title="แชตติดต่อคุณเอกชัยทาง LINE"
+            >
+              <span className="text-sm leading-none font-black">💬</span>
+              <span>LINE</span>
+            </a>
+
+            {/* Minimalist Segmented Language Switcher */}
+            <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200/80">
+              <Globe className="w-3.5 h-3.5 text-slate-400 ml-1.5 mr-1 hidden sm:block" />
+              {languages.map((l) => {
+                const isActive = lang === l.code;
+                return (
+                  <button
+                    key={l.code}
+                    onClick={() => setLang(l.code)}
+                    className={`px-2.5 py-1 text-[11px] font-bold rounded-lg transition-all cursor-pointer ${
+                      isActive
+                        ? "bg-white text-slate-900 shadow-xs scale-100"
+                        : "text-slate-500 hover:text-slate-900"
+                    }`}
+                    title={l.label}
+                  >
+                    {l.short}
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Subtle Admin Portal Icon Button */}
+            <Link
+              href="/admin"
+              className="p-2.5 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 border border-transparent hover:border-slate-200 transition cursor-pointer"
+              title="เข้าสู่ระบบจัดการสินค้าหลังบ้าน (Admin Dashboard)"
+            >
+              <Settings className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+
+        {/* Mobile Search Bar (Appears under header when on phone screens) */}
+        <div className="pb-3 md:hidden">
+          <div className="relative flex items-center">
+            <Search className="absolute left-3.5 w-4 h-4 text-slate-400" />
+            <input
+              type="text"
+              placeholder={t.searchPlaceholder}
+              value={searchQuery}
+              onChange={(e) => onSearchChange(e.target.value)}
+              className="w-full pl-10 pr-9 py-2 text-xs bg-slate-100 border border-slate-200 rounded-xl outline-hidden text-slate-900"
+            />
+            {searchQuery && (
+              <button
+                type="button"
+                onClick={() => onSearchChange("")}
+                className="absolute right-3 p-0.5 text-slate-400"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </header>
+  );
+};
