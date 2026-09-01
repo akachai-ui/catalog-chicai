@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { FileText, Check, Layers, Gauge, Target, Zap, ShieldCheck, ShieldOff, Clock, Play, X } from "lucide-react";
+import { FileText, Check, Layers, Gauge, Target, Zap, ShieldCheck, ShieldOff, Clock, Play, X, ExternalLink } from "lucide-react";
 import { Language, formatWarranty } from "@/lib/i18n";
 
 interface IndustrialProductCardProps {
@@ -107,6 +107,7 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
       return {
         type: "youtube" as const,
         embedUrl: `https://www.youtube.com/embed/${ytMatch[1]}?autoplay=1&rel=0`,
+        directUrl: cleanUrl,
       };
     }
 
@@ -117,6 +118,7 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
         return {
           type: "drive" as const,
           embedUrl: `https://drive.google.com/file/d/${driveMatch1[1]}/preview`,
+          directUrl: `https://drive.google.com/file/d/${driveMatch1[1]}/view`,
         };
       }
       const driveMatch2 = cleanUrl.match(/[?&]id=([a-zA-Z0-9_-]+)/);
@@ -124,6 +126,7 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
         return {
           type: "drive" as const,
           embedUrl: `https://drive.google.com/file/d/${driveMatch2[1]}/preview`,
+          directUrl: `https://drive.google.com/file/d/${driveMatch2[1]}/view`,
         };
       }
     }
@@ -132,6 +135,7 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
     return {
       type: "direct" as const,
       embedUrl: cleanUrl,
+      directUrl: cleanUrl,
     };
   };
 
@@ -159,7 +163,7 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
               <iframe
                 src={embedData.embedUrl}
                 title={name}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
                 allowFullScreen
                 className="w-full h-full border-0"
               />
@@ -167,7 +171,7 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
               <iframe
                 src={embedData.embedUrl}
                 title={name}
-                allow="autoplay"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
                 allowFullScreen
                 className="w-full h-full border-0"
               />
@@ -176,25 +180,45 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
                 src={embedData.embedUrl}
                 controls
                 autoPlay
+                playsInline
                 className="w-full h-full object-contain"
               >
                 เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอนี้
               </video>
             )}
 
-            {/* Close Video & Return to Photo Button */}
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsPlayingVideo(false);
-              }}
-              className="absolute top-2.5 right-2.5 z-30 py-1 px-2.5 rounded-full bg-black/80 hover:bg-red-600 text-white transition shadow-lg cursor-pointer border border-white/25 flex items-center gap-1 text-[10px] font-bold"
-              title="ปิดวิดีโอ / กลับไปดูรูปสินค้า"
-            >
-              <X className="w-3.5 h-3.5" />
-              <span>{btnCloseVideo}</span>
-            </button>
+            {/* Top Overlay Bar: External Direct Link (Fixes Mobile/LINE Black Screen) & Close */}
+            <div className="absolute top-2.5 inset-x-2.5 z-30 flex items-center justify-between pointer-events-none">
+              <a
+                href={embedData.directUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pointer-events-auto py-1 px-2.5 rounded-full bg-slate-900/90 hover:bg-[#219990] text-white transition shadow-lg cursor-pointer border border-white/20 flex items-center gap-1.5 text-[10px] font-bold active:scale-95 touch-manipulation"
+                title="เปิดคลิปต้นฉบับในหน้าต่างใหม่ / Google Drive (ภาพคมชัด 100%)"
+              >
+                <ExternalLink className="w-3 h-3 text-emerald-300" />
+                <span>
+                  {lang === "zh"
+                    ? "黑屏? 进Drive播放"
+                    : lang === "en"
+                    ? "Black screen? Open Drive"
+                    : "จอดำ? แตะเปิดใน Drive"}
+                </span>
+              </a>
+
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsPlayingVideo(false);
+                }}
+                className="pointer-events-auto py-1 px-2.5 rounded-full bg-black/85 hover:bg-red-600 text-white transition shadow-lg cursor-pointer border border-white/25 flex items-center gap-1 text-[10px] font-bold active:scale-95 touch-manipulation"
+                title="ปิดวิดีโอ / กลับไปดูรูปสินค้า"
+              >
+                <X className="w-3.5 h-3.5" />
+                <span>{btnCloseVideo}</span>
+              </button>
+            </div>
           </div>
         ) : (
           <div
@@ -236,7 +260,11 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation();
-                  setIsPlayingVideo(true);
+                  if (onOpenVideo) {
+                    onOpenVideo(product);
+                  } else {
+                    setIsPlayingVideo(true);
+                  }
                 }}
                 className="absolute inset-0 m-auto w-12 h-12 rounded-full bg-slate-950/75 hover:bg-red-600 text-white flex items-center justify-center shadow-xl backdrop-blur-xs transition-all duration-300 hover:scale-115 active:scale-90 z-20 group/play cursor-pointer border border-white/40 opacity-90 hover:opacity-100 touch-manipulation"
                 title="คลิกเพื่อเล่นวิดีโอสาธิตในช่องนี้ทันที"

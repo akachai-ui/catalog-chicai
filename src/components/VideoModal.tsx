@@ -85,13 +85,30 @@ export const VideoModal: React.FC<VideoModalProps> = ({
           </div>
         </div>
 
+        {/* Notice for LINE and Mobile Users */}
+        <div className="px-4 sm:px-6 py-2.5 bg-gradient-to-r from-amber-500/20 via-slate-900 to-amber-500/20 border-b border-amber-500/20 text-[11px] flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div className="flex items-center gap-1.5 text-amber-200 text-center sm:text-left">
+            <span className="text-sm">💡</span>
+            <span>หากเปิดดูผ่านมือถือหรือแอป LINE แล้วจอดำ (มีแต่เสียง) ให้แตะปุ่มนี้:</span>
+          </div>
+          <a
+            href={rawUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3.5 py-1.5 bg-[#06C755] hover:bg-[#05b34c] text-white font-bold text-xs rounded-xl flex items-center gap-1.5 shadow-md transition active:scale-95 touch-manipulation shrink-0"
+          >
+            <ExternalLink className="w-3.5 h-3.5" />
+            <span>เปิดดูใน Google Drive (ภาพคมชัด 100%) ↗</span>
+          </a>
+        </div>
+
         {/* Video Player Box */}
         <div className="relative aspect-16/9 w-full bg-black flex items-center justify-center">
           {ytEmbedUrl ? (
             <iframe
               src={ytEmbedUrl}
               title={title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
               allowFullScreen
               className="w-full h-full border-0"
             />
@@ -99,7 +116,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({
             <iframe
               src={driveEmbedUrl}
               title={title}
-              allow="autoplay"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen"
               allowFullScreen
               className="w-full h-full border-0"
             />
@@ -108,6 +125,7 @@ export const VideoModal: React.FC<VideoModalProps> = ({
               src={rawUrl}
               controls
               autoPlay
+              playsInline
               className="w-full h-full object-contain"
             >
               เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอนี้
@@ -121,12 +139,12 @@ export const VideoModal: React.FC<VideoModalProps> = ({
           <div className="flex items-center gap-3 text-xs text-slate-300 flex-wrap">
             <span className="inline-flex items-center gap-1 text-emerald-400 font-semibold">
               <ShieldCheck className="w-4 h-4" />
-              <span>{product.warranty || "รับประกัน 2 ปี On-site"}</span>
+              <span>{product.warranty || "ไม่มีการรับประกัน"}</span>
             </span>
             <span>•</span>
             <span className="inline-flex items-center gap-1 text-amber-400 font-semibold">
               <Clock className="w-4 h-4" />
-              <span>{product.lead_time || "พร้อมส่ง 1-3 วันทำการ"}</span>
+              <span>{product.lead_time || "พร้อมส่ง 1-3 วัน"}</span>
             </span>
             <span>•</span>
             <span className="text-slate-400 font-mono">
@@ -140,16 +158,16 @@ export const VideoModal: React.FC<VideoModalProps> = ({
               href={rawUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2.5 text-xs font-semibold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-xl transition flex items-center gap-1.5"
+              className="px-4 py-2.5 text-xs font-bold text-white bg-[#06C755] hover:bg-[#05b34c] rounded-xl transition flex items-center gap-1.5 shadow-md active:scale-95 touch-manipulation"
             >
               <ExternalLink className="w-3.5 h-3.5" />
-              <span>เปิดคลิปต้นฉบับ</span>
+              <span>เปิดดูใน Google Drive</span>
             </a>
 
             <button
               type="button"
               onClick={onClose}
-              className="px-5 py-2.5 text-xs font-bold rounded-xl bg-slate-800 hover:bg-slate-700 text-white transition cursor-pointer"
+              className="px-5 py-2.5 text-xs font-bold rounded-xl bg-slate-800 hover:bg-slate-700 text-white transition cursor-pointer active:scale-95 touch-manipulation"
             >
               ปิดหน้าต่าง
             </button>
