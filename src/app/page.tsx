@@ -206,7 +206,7 @@ export default function HomePage() {
                   onClick={() => setSearchQuery("")}
                   className="text-xs text-[#219990] hover:underline font-semibold cursor-pointer"
                 >
-                  ล้างตัวกรอง
+                  {lang === "zh" ? "清除筛选" : lang === "en" ? "Clear filter" : "ล้างตัวกรอง"}
                 </button>
               )}
             </div>
@@ -303,13 +303,27 @@ export default function HomePage() {
           <div className="relative z-10">
             <div className="max-w-2xl">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-emerald-300 text-xs font-semibold mb-3 backdrop-blur-xs border border-white/15">
-                <span>ช่องทางติดต่อทางการ • Official Channels</span>
+                <span>
+                  {lang === "zh"
+                    ? "官方联络方式 • Official Channels"
+                    : lang === "en"
+                    ? "Official Contact Channels"
+                    : "ช่องทางติดต่อทางการ • Official Channels"}
+                </span>
               </div>
               <h2 className="text-xl sm:text-2xl font-black tracking-tight">
-                ปรึกษาวิศวกรผู้เชี่ยวชาญ & สั่งซื้อสินค้า
+                {lang === "zh"
+                  ? "咨询专业工程师 & 设备采购订购"
+                  : lang === "en"
+                  ? "Consult Engineers & Order Machinery"
+                  : "ปรึกษาวิศวกรผู้เชี่ยวชาญ & สั่งซื้อสินค้า"}
               </h2>
               <p className="mt-2 text-xs sm:text-sm text-slate-300 font-light leading-relaxed">
-                ยินดีให้คำปรึกษาการเลือกเครื่องจักรอุตสาหกรรม กรองน้ำมันหม้อแปลง และอุปกรณ์ไฟฟ้าแรงสูง พร้อมบริการจัดส่งและ On-site Service ทั่วประเทศไทย
+                {lang === "zh"
+                  ? "竭诚为工业制造企业提供工业滤油机、切削液净化机选型咨询与全泰国上门 On-site 现场实测服务"
+                  : lang === "en"
+                  ? "Expert consultation for industrial oil purification and coolant recycling with nationwide on-site service in Thailand."
+                  : "ยินดีให้คำปรึกษาการเลือกเครื่องจักรอุตสาหกรรม กรองน้ำมันและฟื้นฟูน้ำยาหล่อเย็น พร้อมบริการจัดส่งและ On-site Service ทั่วประเทศไทย"}
               </p>
             </div>
 
@@ -330,11 +344,19 @@ export default function HomePage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
                     <h3 className="font-bold text-sm text-white">LINE</h3>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#06C755] text-white">แชตด่วน</span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#06C755] text-white">
+                      {lang === "zh" ? "在线沟通" : lang === "en" ? "Quick Chat" : "แชตด่วน"}
+                    </span>
                   </div>
-                  <p className="text-xs text-emerald-300 mt-1 font-mono truncate">คุณเอกชัย หาบ้านแท่น (Max)</p>
+                  <p className="text-xs text-emerald-300 mt-1 font-mono truncate">
+                    คุณเอกชัย หาบ้านแท่น (Max)
+                  </p>
                   <p className="text-[11px] text-slate-300 mt-1.5 leading-snug">
-                    แชตปรึกษาสเปกและสั่งซื้อสินค้ากับคุณเอกชัยโดยตรง
+                    {lang === "zh"
+                      ? "直接与销售代表 Max (คุณเอกชัย) 微信/LINE 在线沟通"
+                      : lang === "en"
+                      ? "Chat directly with sales representative Max (Khun Ekachai)"
+                      : "แชตปรึกษาสเปกและสั่งซื้อสินค้ากับคุณเอกชัยโดยตรง"}
                   </p>
                 </div>
               </a>
@@ -354,11 +376,17 @@ export default function HomePage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
                     <h3 className="font-bold text-sm text-white">Facebook</h3>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#1877F2] text-white">ติดตาม</span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#1877F2] text-white">
+                      {lang === "zh" ? "关注我们" : lang === "en" ? "Follow" : "ติดตาม"}
+                    </span>
                   </div>
                   <p className="text-xs text-blue-300 mt-1 font-mono truncate">chicai.thailand</p>
                   <p className="text-[11px] text-slate-300 mt-1.5 leading-snug">
-                    ภาพการส่งมอบเครื่องจักรหน้างานจริง และผลงานการบริการ
+                    {lang === "zh"
+                      ? "关注官方动态、观看实测演示视频与最新优惠"
+                      : lang === "en"
+                      ? "On-site delivery showcases and machine demonstration videos"
+                      : "ภาพการส่งมอบเครื่องจักรหน้างานจริง และผลงานการบริการ"}
                   </p>
                 </div>
               </a>
@@ -378,11 +406,17 @@ export default function HomePage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
                     <h3 className="font-bold text-sm text-white">Instagram</h3>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#E4405F] text-white">Follow</span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#E4405F] text-white">
+                      Follow
+                    </span>
                   </div>
                   <p className="text-xs text-pink-300 mt-1 font-mono truncate">@chicai.thailand</p>
                   <p className="text-[11px] text-slate-300 mt-1.5 leading-snug">
-                    แกลเลอรีภาพถ่ายสินค้า งานผลิต และคลิปวิดีโอสาธิต
+                    {lang === "zh"
+                      ? "高清图库：设备制造、工厂安装实况与客户案例"
+                      : lang === "en"
+                      ? "Gallery of machinery installations, production and demos"
+                      : "แกลเลอรีภาพถ่ายสินค้า งานผลิต และคลิปวิดีโอสาธิต"}
                   </p>
                 </div>
               </a>
@@ -394,7 +428,9 @@ export default function HomePage() {
               <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white/5 border border-white/10">
                 <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                 <div>
-                  <div className="font-bold text-white text-[11px]">ที่ตั้งสำนักงานใหญ่</div>
+                  <div className="font-bold text-white text-[11px]">
+                    {lang === "zh" ? "总部办公地址" : lang === "en" ? "Head Office" : "ที่ตั้งสำนักงานใหญ่"}
+                  </div>
                   <p className="text-slate-300 text-[11px] mt-0.5 leading-relaxed">
                     75/2 ชั้นที่ 3 หมู่ที่ 12 ต.บางพลีใหญ่ อ.บางพลี จ.สมุทรปราการ 10540
                   </p>
@@ -405,7 +441,9 @@ export default function HomePage() {
               <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white/5 border border-white/10">
                 <User className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                 <div>
-                  <div className="font-bold text-white text-[11px]">ฝ่ายขาย / ผู้ประสานงาน</div>
+                  <div className="font-bold text-white text-[11px]">
+                    {lang === "zh" ? "销售代表 / 业务经理" : lang === "en" ? "Sales Representative" : "ฝ่ายขาย / ผู้ประสานงาน"}
+                  </div>
                   <div className="text-white font-medium text-[11px] mt-0.5">
                     คุณเอกชัย หาบ้านแท่น (Max)
                   </div>
@@ -424,7 +462,9 @@ export default function HomePage() {
               <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white/5 border border-white/10">
                 <Phone className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                 <div>
-                  <div className="font-bold text-white text-[11px]">เบอร์โทรศัพท์สำนักงาน</div>
+                  <div className="font-bold text-white text-[11px]">
+                    {lang === "zh" ? "公司总机电话" : lang === "en" ? "Office Telephone" : "เบอร์โทรศัพท์สำนักงาน"}
+                  </div>
                   <a
                     href="tel:021307590"
                     className="block text-slate-200 hover:text-white font-semibold text-xs mt-0.5"
@@ -432,7 +472,13 @@ export default function HomePage() {
                   >
                     02-1307590-91
                   </a>
-                  <p className="text-[10px] text-emerald-400 font-medium mt-0.5">เวลาทำการ: จ-ศ 08.00-17.00</p>
+                  <p className="text-[10px] text-emerald-400 font-medium mt-0.5">
+                    {lang === "zh"
+                      ? "工作时间: 周一至五 08:00-17:00"
+                      : lang === "en"
+                      ? "Mon - Fri: 08:00 - 17:00"
+                      : "เวลาทำการ: จ-ศ 08.00-17.00"}
+                  </p>
                 </div>
               </div>
 
@@ -440,7 +486,9 @@ export default function HomePage() {
               <div className="flex items-start gap-3 p-3.5 rounded-2xl bg-white/5 border border-white/10">
                 <Mail className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
                 <div>
-                  <div className="font-bold text-white text-[11px]">อีเมลติดต่อ (Email)</div>
+                  <div className="font-bold text-white text-[11px]">
+                    {lang === "zh" ? "官方联络邮箱 (Email)" : lang === "en" ? "Official Email" : "อีเมลติดต่อ (Email)"}
+                  </div>
                   <a
                     href="mailto:akachai.chaicai@gmail.com"
                     className="block text-slate-200 hover:text-white font-mono text-[11px] mt-0.5 break-all hover:underline"
@@ -448,7 +496,9 @@ export default function HomePage() {
                   >
                     akachai.chaicai@gmail.com
                   </a>
-                  <p className="text-[10px] text-slate-400 mt-0.5">ส่งสเปก / เอกสารทางการ</p>
+                  <p className="text-[10px] text-slate-400 mt-0.5">
+                    {lang === "zh" ? "接收工程图纸 / 选型询价" : lang === "en" ? "Inquiries / Technical Specs" : "ส่งสเปก / เอกสารทางการ"}
+                  </p>
                 </div>
               </div>
             </div>
@@ -520,7 +570,11 @@ export default function HomePage() {
 
           <div className="pt-4 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-3 text-[11px] text-gray-500">
             <div>
-              สำนักงาน: 75/2 ชั้นที่ 3 หมู่ที่ 12 ต.บางพลีใหญ่ อ.บางพลี จ.สมุทรปราการ 10540 • โทร: 02-1307590-91 • เวลาทำการ: จ-ศ 08.00-17.00
+              {lang === "zh"
+                ? "地址: 75/2 3楼 12组 Bang Phli Yai, Bang Phli, Samut Prakan 10540 • 电话: 02-1307590-91 • 工作时间: 周一至五 08:00-17:00"
+                : lang === "en"
+                ? "Office: 75/2 3rd Fl., Moo 12, Bang Phli Yai, Bang Phli, Samut Prakan 10540 • Tel: 02-1307590-91 • Mon - Fri: 08:00 - 17:00"
+                : "สำนักงาน: 75/2 ชั้นที่ 3 หมู่ที่ 12 ต.บางพลีใหญ่ อ.บางพลี จ.สมุทรปราการ 10540 • โทร: 02-1307590-91 • เวลาทำการ: จ-ศ 08.00-17.00"}
             </div>
             <div className="text-gray-400">
               © {new Date().getFullYear()} {t.companySubName}. {t.copyright}.
@@ -535,14 +589,22 @@ export default function HomePage() {
         target="_blank"
         rel="noopener noreferrer"
         className="fixed bottom-5 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center gap-2.5 px-4 py-3 bg-[#06C755] hover:bg-[#05b34c] text-white rounded-full shadow-2xl hover:shadow-[#06C755]/50 hover:scale-105 active:scale-95 transition-all duration-300 border-2 border-white cursor-pointer group touch-manipulation"
-        title="แชตติดต่อคุณเอกชัยทาง LINE"
+        title={
+          lang === "zh"
+            ? "微信/LINE 咨询销售经理 Max"
+            : lang === "en"
+            ? "Chat with Sales Representative Max via LINE"
+            : "แชตติดต่อคุณเอกชัยทาง LINE"
+        }
       >
         <span className="relative flex h-3 w-3">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
           <span className="relative inline-flex rounded-full h-3 w-3 bg-white"></span>
         </span>
         <span className="text-sm leading-none font-black">💬</span>
-        <span className="font-bold text-xs tracking-wide">แชตทาง LINE</span>
+        <span className="font-bold text-xs tracking-wide">
+          {lang === "zh" ? "微信/LINE 咨询" : lang === "en" ? "Chat via LINE" : "แชตทาง LINE"}
+        </span>
       </a>
     </div>
   );

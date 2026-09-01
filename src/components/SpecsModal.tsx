@@ -112,16 +112,34 @@ export const SpecsModal: React.FC<SpecsModalProps> = ({
             <div className="mt-2 flex flex-wrap items-center justify-center gap-1.5">
               <div className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full text-[10px] sm:text-xs font-semibold">
                 <ShieldCheck className="w-3 h-3 text-emerald-600 shrink-0" />
-                <span>{product.warranty || "รับประกัน 2 ปี On-site Service"}</span>
+                <span>
+                  {lang === "zh"
+                    ? "整机质保 2 年 (现场服务)"
+                    : lang === "en"
+                    ? "2-Year On-site Warranty"
+                    : "รับประกัน 2 ปี On-site Service"}
+                </span>
               </div>
 
               {product.stock_status === "pre_order" ? (
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-amber-50 text-amber-800 border border-amber-200 rounded-full text-[10px] sm:text-xs font-semibold">
-                  <span>⏳ {product.lead_time || "Pre-order 15-30 วัน"}</span>
+                  <span>
+                    {lang === "zh"
+                      ? "⏳ 预订 15-30 天"
+                      : lang === "en"
+                      ? "⏳ Pre-order 15-30 Days"
+                      : "⏳ Pre-order 15-30 วัน"}
+                  </span>
                 </span>
               ) : (
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full text-[10px] sm:text-xs font-semibold">
-                  <span>✓ {product.lead_time || "มีสินค้าพร้อมส่ง 1-3 วัน"}</span>
+                  <span>
+                    {lang === "zh"
+                      ? "✓ 现货 1-3 天"
+                      : lang === "en"
+                      ? "✓ In Stock 1-3 Days"
+                      : "✓ มีสินค้าพร้อมส่ง 1-3 วัน"}
+                  </span>
                 </span>
               )}
             </div>
@@ -132,7 +150,24 @@ export const SpecsModal: React.FC<SpecsModalProps> = ({
         <div className="p-4 sm:p-6 md:w-7/12 flex flex-col overflow-y-auto overscroll-contain">
           <div>
             <div className="inline-block px-2.5 py-0.5 rounded-full bg-[#219990]/15 text-[#145853] text-xs font-bold mb-2">
-              {product.model} {product.variant ? `• ${product.variant}` : ""}
+              {product.model}{" "}
+              {product.variant
+                ? `• ${
+                    lang === "zh"
+                      ? product.variant.includes("Single")
+                        ? "单筒型"
+                        : product.variant.includes("Double")
+                        ? "双筒型"
+                        : "标准版"
+                      : lang === "th"
+                      ? product.variant.includes("Single")
+                        ? "กระบอกเดี่ยว"
+                        : product.variant.includes("Double")
+                        ? "กระบอกคู่"
+                        : "รุ่นมาตรฐาน"
+                      : product.variant
+                  }`
+                : ""}
             </div>
             <h2 className="text-xl font-black text-gray-900 leading-snug">
               {name}
@@ -236,10 +271,22 @@ export const SpecsModal: React.FC<SpecsModalProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               className="py-3 px-5 text-xs font-bold text-white bg-[#06C755] hover:bg-[#05b34c] rounded-xl shadow-md shadow-[#06C755]/20 transition flex items-center justify-center gap-2 cursor-pointer active:scale-98 touch-manipulation order-1 sm:order-2"
-              title="ปรึกษาหรือสั่งซื้อทาง LINE กับคุณเอกชัย"
+              title={
+                lang === "zh"
+                  ? "微信/LINE 咨询订购"
+                  : lang === "en"
+                  ? "Contact Khun Ekachai via LINE"
+                  : "ปรึกษาหรือสั่งซื้อทาง LINE กับคุณเอกชัย"
+              }
             >
               <span className="text-sm leading-none font-black">💬</span>
-              <span>ปรึกษา / สั่งซื้อทาง LINE</span>
+              <span>
+                {lang === "zh"
+                  ? "咨询 / 订购 (LINE)"
+                  : lang === "en"
+                  ? "Inquire / Order (LINE)"
+                  : "ปรึกษา / สั่งซื้อทาง LINE"}
+              </span>
             </a>
 
             <button
@@ -257,7 +304,7 @@ export const SpecsModal: React.FC<SpecsModalProps> = ({
               onClick={onClose}
               className="py-2.5 sm:py-3 px-5 text-xs font-bold text-gray-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition cursor-pointer active:scale-98 touch-manipulation order-3"
             >
-              ✕ ปิด
+              {lang === "zh" ? "✕ 关闭" : lang === "en" ? "✕ Close" : "✕ ปิด"}
             </button>
           </div>
         </div>

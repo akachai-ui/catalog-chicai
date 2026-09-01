@@ -63,24 +63,39 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
     product.category ||
     "Machine";
 
-  const rawLeadTime =
-    product.lead_time ||
-    (product.stock_status === "pre_order"
-      ? "Pre-order 15-30 วัน"
-      : "พร้อมส่ง 1-3 วัน");
-  const leadTimeClean = String(rawLeadTime).replace(/ทำการ/g, "").trim();
   const isPreOrder = product.stock_status === "pre_order";
+  const leadTimeClean = isPreOrder
+    ? {
+        th: "Pre-order 15-30 วัน",
+        zh: "预订 15-30 天",
+        en: "Pre-order 15-30 Days",
+      }[lang]
+    : {
+        th: "พร้อมส่ง 1-3 วัน",
+        zh: "现货 1-3 天",
+        en: "In Stock 1-3 Days",
+      }[lang];
 
-  const rawWarranty = product.warranty;
-  const warrantyText =
-    rawWarranty &&
-    rawWarranty !== "0" &&
-    rawWarranty !== 0 &&
-    typeof rawWarranty === "string" &&
-    rawWarranty.trim() !== "" &&
-    rawWarranty.trim() !== "0"
-      ? rawWarranty
-      : "รับประกัน 2 ปี On-site Service";
+  const warrantyText = {
+    th: "รับประกัน 2 ปี On-site Service",
+    zh: "整机质保 2 年 (上门现场服务)",
+    en: "2-Year On-site Warranty",
+  }[lang];
+
+  const variantDisplay = (() => {
+    const v = product.variant;
+    if (!v) return "";
+    if (lang === "zh") {
+      if (v.includes("Single") || v.includes("เดี่ยว")) return "单筒型";
+      if (v.includes("Double") || v.includes("คู่")) return "双筒型";
+      if (v.includes("Standard") || v.includes("มาตรฐาน")) return "标准版";
+    } else if (lang === "th") {
+      if (v.includes("Single") || v.includes("单筒")) return "กระบอกเดี่ยว";
+      if (v.includes("Double") || v.includes("双筒")) return "กระบอกคู่";
+      if (v.includes("Standard") || v.includes("标准")) return "รุ่นมาตรฐาน";
+    }
+    return v;
+  })();
 
   // Extract embed info for YouTube / Google Drive / MP4
   const getEmbedVideoUrl = (url?: string) => {
@@ -132,13 +147,18 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
     en: "View Specs",
   }[lang];
 
+  const btnCloseVideo = {
+    th: "ปิดคลิป",
+    zh: "关闭视频",
+    en: "Close Video",
+  }[lang];
 
   return (
     <div className="group relative flex flex-col bg-white rounded-3xl border border-slate-200/90 overflow-hidden hover:shadow-2xl hover:shadow-[#219990]/15 hover:-translate-y-1 transition-all duration-300">
       {/* Product Image / Inline Video Player Container */}
       <div className="relative aspect-4/3 w-full bg-slate-950 overflow-hidden flex items-center justify-center border-b border-slate-100">
         {isPlayingVideo && embedData ? (
-          <div className="relative w-full h-full bg-black">
+          <div className="relative w-full h-full">
             {embedData.type === "youtube" ? (
               <iframe
                 src={embedData.embedUrl}
@@ -177,7 +197,7 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
               title="ปิดวิดีโอ / กลับไปดูรูปสินค้า"
             >
               <X className="w-3.5 h-3.5" />
-              <span>ปิดคลิป</span>
+              <span>{btnCloseVideo}</span>
             </button>
           </div>
         ) : (
@@ -231,9 +251,9 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
 
             {/* Bottom Badges Row: Variant (Left) & SKU (Right) */}
             <div className="absolute bottom-3 inset-x-3.5 flex items-center justify-between gap-2 pointer-events-none z-10">
-              {product.variant ? (
+              {variantDisplay ? (
                 <span className="px-2.5 py-0.5 text-[10px] font-bold rounded-md bg-[#219990] text-white shadow-xs truncate max-w-[55%]">
-                  {product.variant}
+                  {variantDisplay}
                 </span>
               ) : (
                 <span />
@@ -262,7 +282,7 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
           {product.specs?.flowRate && product.specs.flowRate !== "-" && (
             <div className="bg-slate-50 p-2 rounded-xl border border-slate-100 text-center">
               <span className="text-[9px] text-gray-400 block font-medium">
-                {lang === "th" ? "อัตราไหล" : "Flow"}
+                {lang === "th" ? "อัตราไหล" : lang === "zh" ? "额定流量" : "Flow Rate"}
               </span>
               <span className="font-bold text-gray-800 text-[11px] truncate block">
                 {product.specs.flowRate}
@@ -273,7 +293,7 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
           {product.specs?.precision && product.specs.precision !== "-" && (
             <div className="bg-slate-50 p-2 rounded-xl border border-slate-100 text-center">
               <span className="text-[9px] text-gray-400 block font-medium">
-                {lang === "th" ? "ความละเอียด" : "Precision"}
+                {lang === "th" ? "ความละเอียด" : lang === "zh" ? "过滤精度" : "Precision"}
               </span>
               <span className="font-bold text-gray-800 text-[11px] truncate block">
                 {product.specs.precision}
@@ -284,7 +304,7 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
           {(product.specs?.ozoneLevel && product.specs.ozoneLevel !== "-") ? (
             <div className="bg-slate-50 p-2 rounded-xl border border-slate-100 text-center">
               <span className="text-[9px] text-gray-400 block font-medium">
-                {lang === "th" ? "โอโซน" : "Ozone"}
+                {lang === "th" ? "โอโซน" : lang === "zh" ? "臭氧杀菌" : "Ozone"}
               </span>
               <span className="font-bold text-gray-800 text-[11px] truncate block">
                 {product.specs.ozoneLevel}
@@ -293,10 +313,12 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
           ) : product.specs?.power && product.specs.power !== "-" ? (
             <div className="bg-slate-50 p-2 rounded-xl border border-slate-100 text-center">
               <span className="text-[9px] text-gray-400 block font-medium">
-                {lang === "th" ? "ระบบขับเคลื่อน" : "Power"}
+                {lang === "th" ? "ระบบขับเคลื่อน" : lang === "zh" ? "驱动方式" : "Power"}
               </span>
               <span className="font-bold text-gray-800 text-[11px] truncate block">
-                {product.specs.power.includes("Pneumatic") ? "Pneumatic ลม" : product.specs.power.split(",")[1]?.trim() || "220V 370W"}
+                {product.specs.power.includes("Pneumatic")
+                  ? (lang === "th" ? "Pneumatic ลม" : lang === "zh" ? "气动动力" : "Pneumatic")
+                  : product.specs.power.split(",")[1]?.trim() || "220V 370W"}
               </span>
             </div>
           ) : null}
@@ -308,7 +330,9 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
           <div className="mt-2.5 pt-2 border-t border-slate-100 flex flex-col gap-1 text-[10px]">
             {product.applicable_fluids && product.applicable_fluids.length > 0 && (
               <div className="flex items-center gap-1.5 truncate text-gray-600">
-                <span className="text-blue-600 font-bold shrink-0">💧 ของเหลว:</span>
+                <span className="text-blue-600 font-bold shrink-0">
+                  {lang === "th" ? "💧 ของเหลว:" : lang === "zh" ? "💧 适用油液:" : "💧 Fluids:"}
+                </span>
                 <span className="truncate font-medium text-slate-700">
                   {product.applicable_fluids.slice(0, 2).map((f: string) => f.split(" (")[0]).join(" • ")}
                 </span>
@@ -317,7 +341,9 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
 
             {product.compatible_machinery && product.compatible_machinery.length > 0 && (
               <div className="flex items-center gap-1.5 truncate text-gray-600">
-                <span className="text-emerald-700 font-bold shrink-0">⚙️ เครื่องจักร:</span>
+                <span className="text-emerald-700 font-bold shrink-0">
+                  {lang === "th" ? "⚙️ เครื่องจักร:" : lang === "zh" ? "⚙️ 适用机床:" : "⚙️ Machinery:"}
+                </span>
                 <span className="truncate font-medium text-slate-700">
                   {product.compatible_machinery.slice(0, 2).map((m: string) => m.split(" (")[0]).join(" • ")}
                 </span>

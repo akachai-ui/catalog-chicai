@@ -446,7 +446,9 @@ export default function MasterCatalogPage() {
               className="px-3 py-1 bg-slate-900/90 text-white text-[10px] font-bold rounded-full shadow hover:bg-slate-900 transition flex items-center gap-1"
             >
               <Download className="w-3 h-3" />
-              <span>ดาวน์โหลดเฉพาะหน้า 1 (A4)</span>
+              <span>
+                {lang === "zh" ? "单独下载第 1 页 (A4)" : lang === "en" ? "Download Page 1 (A4)" : "ดาวน์โหลดเฉพาะหน้า 1 (A4)"}
+              </span>
             </button>
           </div>
 
@@ -608,7 +610,9 @@ export default function MasterCatalogPage() {
               className="px-3 py-1 bg-slate-900/90 text-white text-[10px] font-bold rounded-full shadow hover:bg-slate-900 transition flex items-center gap-1"
             >
               <Download className="w-3 h-3" />
-              <span>ดาวน์โหลดเฉพาะหน้า 2 (A4)</span>
+              <span>
+                {lang === "zh" ? "单独下载第 2 页 (A4)" : lang === "en" ? "Download Page 2 (A4)" : "ดาวน์โหลดเฉพาะหน้า 2 (A4)"}
+              </span>
             </button>
           </div>
 
@@ -780,7 +784,9 @@ export default function MasterCatalogPage() {
               className="px-3 py-1 bg-slate-900/90 text-white text-[10px] font-bold rounded-full shadow hover:bg-slate-900 transition flex items-center gap-1"
             >
               <Download className="w-3 h-3" />
-              <span>ดาวน์โหลดเฉพาะหน้า 3 (A4)</span>
+              <span>
+                {lang === "zh" ? "单独下载第 3 页 (A4)" : lang === "en" ? "Download Page 3 (A4)" : "ดาวน์โหลดเฉพาะหน้า 3 (A4)"}
+              </span>
             </button>
           </div>
 
@@ -952,7 +958,9 @@ export default function MasterCatalogPage() {
               className="px-3 py-1 bg-slate-900/90 text-white text-[10px] font-bold rounded-full shadow hover:bg-slate-900 transition flex items-center gap-1"
             >
               <Download className="w-3 h-3" />
-              <span>ดาวน์โหลดเฉพาะหน้า 4 (A4)</span>
+              <span>
+                {lang === "zh" ? "单独下载第 4 页 (A4)" : lang === "en" ? "Download Page 4 (A4)" : "ดาวน์โหลดเฉพาะหน้า 4 (A4)"}
+              </span>
             </button>
           </div>
 
@@ -1131,14 +1139,18 @@ export default function MasterCatalogPage() {
                       className="px-3 py-1.5 rounded-xl bg-[#06C755] hover:bg-[#05b34c] text-white text-[10px] font-bold flex items-center gap-1.5 transition shadow-sm"
                     >
                       <MessageCircle className="w-3.5 h-3.5" />
-                      <span>LINE: คุณเอกชัย</span>
+                      <span>
+                        {lang === "zh" ? "LINE: Max (คุณเอกชัย)" : lang === "en" ? "LINE: Max (Ekachai)" : "LINE: คุณเอกชัย"}
+                      </span>
                     </a>
                     <a
                       href="tel:0924797666"
                       className="px-3 py-1.5 rounded-xl bg-white/15 hover:bg-white/25 text-white text-[10px] font-bold flex items-center gap-1.5 transition border border-white/20"
                     >
                       <Phone className="w-3.5 h-3.5 text-emerald-300" />
-                      <span>092-479-7666 (คุณเอกชัย)</span>
+                      <span>
+                        {lang === "zh" ? "092-479-7666 (Max)" : lang === "en" ? "092-479-7666 (Max)" : "092-479-7666 (คุณเอกชัย)"}
+                      </span>
                     </a>
                     <a
                       href="https://www.facebook.com/chicai.thailand"
@@ -1153,7 +1165,11 @@ export default function MasterCatalogPage() {
 
                 <div className="mt-3 pt-2.5 border-t border-slate-800 flex flex-wrap items-center justify-between text-[9px] text-slate-400 gap-2">
                   <div>
-                    สำนักงาน: 75/2 ชั้น 3 ม.12 ต.บางพลีใหญ่ อ.บางพลี จ.สมุทรปราการ 10540 • โทร: 02-1307590-91 • เวลาทำการ: จ-ศ 08.00-17.00
+                    {lang === "zh"
+                      ? "地址: 75/2 3楼 12组 Bang Phli Yai, Bang Phli, Samut Prakan 10540 • 电话: 02-1307590-91 • 工作时间: 周一至五 08:00-17:00"
+                      : lang === "en"
+                      ? "Office: 75/2 3rd Fl., Moo 12, Bang Phli Yai, Bang Phli, Samut Prakan 10540 • Tel: 02-1307590-91 • Mon - Fri: 08:00 - 17:00"
+                      : "สำนักงาน: 75/2 ชั้น 3 ม.12 ต.บางพลีใหญ่ อ.บางพลี จ.สมุทรปราการ 10540 • โทร: 02-1307590-91 • เวลาทำการ: จ-ศ 08.00-17.00"}
                   </div>
                   <div>Email: akachai.chaicai@gmail.com</div>
                 </div>
@@ -1162,7 +1178,14 @@ export default function MasterCatalogPage() {
 
             {/* Page 4 Footer */}
             <div className="pt-4 border-t border-slate-200 flex items-center justify-between text-[11px] text-gray-400">
-              <div>{t.companySubName} • 75/2 ม.12 ต.บางพลีใหญ่ อ.บางพลี จ.สมุทรปราการ 10540</div>
+              <div>
+                {t.companySubName} •{" "}
+                {lang === "zh"
+                  ? "75/2 3楼 12组 Bang Phli Yai, Bang Phli, Samut Prakan 10540"
+                  : lang === "en"
+                  ? "75/2 3rd Fl., Moo 12, Bang Phli Yai, Bang Phli, Samut Prakan 10540"
+                  : "75/2 ม.12 ต.บางพลีใหญ่ อ.บางพลี จ.สมุทรปราการ 10540"}
+              </div>
               <div className="font-bold text-gray-600">PAGE 4 / 4</div>
             </div>
           </div>

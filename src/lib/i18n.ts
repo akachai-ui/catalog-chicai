@@ -193,7 +193,7 @@ export const translations: Record<Language, Translations> = {
     ctaInterested: "สนใจสั่งซื้อ / ขอทดสอบเครื่องหน้างาน",
     ctaContactTitle: "ติดต่อฝ่ายขาย บริษัท ฉี ไฉ่ อิเล็คทริค (ประเทศไทย) จำกัด",
     ctaContactDesc: "ยินดีให้คำปรึกษาประเมินความคุ้มค่า และนัดหมายนำเครื่องสาธิตเข้าทดสอบที่โรงงานของท่าน",
-    ctaLineText: "LINE: @chicaielectric",
+    ctaLineText: "LINE: คุณเอกชัย (Max)",
     ctaEngineerText: "สอบถามฝ่ายวิศวกรรม",
 
     // RFQ Modal
@@ -306,7 +306,7 @@ export const translations: Record<Language, Translations> = {
     ctaInterested: "设备订购咨询 / 预约入厂实测",
     ctaContactTitle: "联系奇彩电气（泰国）有限公司销售部",
     ctaContactDesc: "竭诚为工业制造企业提供高性价比废液减排与净化解决方案，欢迎预约试机",
-    ctaLineText: "微信/LINE: @chicaielectric",
+    ctaLineText: "微信/LINE: Max (คุณเอกชัย)",
     ctaEngineerText: "工程技术热线",
 
     // RFQ Modal
@@ -419,7 +419,7 @@ export const translations: Record<Language, Translations> = {
     ctaInterested: "Inquiry / Request On-Site Demo",
     ctaContactTitle: "Contact Chicai Electric (Thailand) Sales Team",
     ctaContactDesc: "Professional fluid recovery consultation and on-site machine demonstration at your factory.",
-    ctaLineText: "LINE: @chicaielectric",
+    ctaLineText: "LINE: Max (Ekachai)",
     ctaEngineerText: "Engineering Support",
 
     // RFQ Modal

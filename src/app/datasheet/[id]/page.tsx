@@ -653,8 +653,20 @@ export default function CatalogDatasheetPage() {
                 {t.ctaContactDesc}
               </div>
               <div className="pt-2 text-[11px] text-slate-400 space-y-0.5">
-                <div>สำนักงาน: 75/2 ชั้นที่ 3 หมู่ที่ 12 ต.บางพลีใหญ่ อ.บางพลี จ.สมุทรปราการ 10540</div>
-                <div>โทร: 02-1307590-91 • Email: akachai.chaicai@gmail.com • เวลาทำการ: จ-ศ 08.00-17.00</div>
+                <div>
+                  {lang === "zh"
+                    ? "地址: 75/2 3楼 12组 Bang Phli Yai, Bang Phli, Samut Prakan 10540"
+                    : lang === "en"
+                    ? "Office: 75/2 3rd Fl., Moo 12, Bang Phli Yai, Bang Phli, Samut Prakan 10540"
+                    : "สำนักงาน: 75/2 ชั้นที่ 3 หมู่ที่ 12 ต.บางพลีใหญ่ อ.บางพลี จ.สมุทรปราการ 10540"}
+                </div>
+                <div>
+                  {lang === "zh"
+                    ? "电话: 02-1307590-91 • Email: akachai.chaicai@gmail.com • 工作时间: 周一至五 08:00-17:00"
+                    : lang === "en"
+                    ? "Tel: 02-1307590-91 • Email: akachai.chaicai@gmail.com • Mon - Fri: 08:00 - 17:00"
+                    : "โทร: 02-1307590-91 • Email: akachai.chaicai@gmail.com • เวลาทำการ: จ-ศ 08.00-17.00"}
+                </div>
               </div>
             </div>
 
@@ -667,7 +679,9 @@ export default function CatalogDatasheetPage() {
                 className="px-4 py-2.5 rounded-2xl bg-[#06C755] hover:bg-[#05b34c] text-white text-xs font-bold flex items-center gap-2 shadow-md transition"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span>LINE: คุณเอกชัย (Max)</span>
+                <span>
+                  {lang === "zh" ? "LINE: Max (คุณเอกชัย)" : lang === "en" ? "LINE: Max (Ekachai)" : "LINE: คุณเอกชัย (Max)"}
+                </span>
               </a>
               <a
                 href="tel:0924797666"
@@ -675,7 +689,9 @@ export default function CatalogDatasheetPage() {
                 title="โทรหาฝ่ายขายทันที"
               >
                 <Phone className="w-4 h-4 text-emerald-300" />
-                <span>092-479-7666 (คุณเอกชัย)</span>
+                <span>
+                  {lang === "zh" ? "092-479-7666 (销售部 Max)" : lang === "en" ? "092-479-7666 (Sales Max)" : "092-479-7666 (คุณเอกชัย)"}
+                </span>
               </a>
             </div>
           </div>
