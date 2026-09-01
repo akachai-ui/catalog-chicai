@@ -20,6 +20,8 @@ import {
   Phone,
   Mail,
   User,
+  Search,
+  X,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -122,11 +124,7 @@ export default function HomePage() {
       )}
 
       {/* Top Navbar with Language Switcher */}
-      <Navbar
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
-        isFirebaseActive={isFirebaseConfigured}
-      />
+      <Navbar isFirebaseActive={isFirebaseConfigured} />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 md:py-12">
         {/* Multilingual Hero Banner */}
@@ -174,9 +172,48 @@ export default function HomePage() {
           <div className="absolute right-10 -bottom-20 w-80 h-80 rounded-full bg-[#0d3b37]/70 blur-3xl" />
         </div>
 
-        {/* Section Header & Category Filter Tabs */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 sm:pb-0 scrollbar-none touch-pan-x -mx-4 px-4 sm:mx-0 sm:px-0">
+        {/* Section Header: Search & Category Filter Bar */}
+        <div className="space-y-4 mb-6 sm:mb-8">
+          {/* Row 1: Search Box & Found Products Counter */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3 sm:p-4 rounded-2xl border border-slate-200/90 shadow-xs">
+            <div className="relative flex-1 max-w-xl">
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <input
+                type="text"
+                placeholder={t.searchPlaceholder}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-9 py-2.5 text-xs sm:text-sm bg-slate-50 hover:bg-slate-100/70 focus:bg-white border border-slate-200 focus:border-[#219990] rounded-xl outline-hidden text-slate-900 transition shadow-inner focus:shadow-md focus:shadow-[#219990]/10"
+              />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-slate-400 hover:text-slate-600 rounded-full hover:bg-slate-200 transition cursor-pointer"
+                  title="ล้างคำค้นหา"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
+            </div>
+
+            <div className="flex items-center justify-between sm:justify-end gap-3 text-xs text-gray-500 font-medium shrink-0">
+              <span className="px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 font-semibold text-[11px] sm:text-xs">
+                {t.foundProducts(filteredProducts.length)}
+              </span>
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="text-xs text-[#219990] hover:underline font-semibold cursor-pointer"
+                >
+                  ล้างตัวกรอง
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Row 2: Category Filter Tabs (Edge-to-edge Swipeable on mobile) */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none touch-pan-x -mx-4 px-4 sm:mx-0 sm:px-0">
             {categories.map((cat) => {
               const active = selectedCategory === cat.id;
               return (
@@ -193,10 +230,6 @@ export default function HomePage() {
                 </button>
               );
             })}
-          </div>
-
-          <div className="text-xs text-gray-500 font-medium">
-            {t.foundProducts(filteredProducts.length)}
           </div>
         </div>
 

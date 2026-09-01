@@ -1,23 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { Search, FileText, Globe, Settings, BookOpen, X, Sparkles } from "lucide-react";
+import { Globe, Settings, BookOpen, Sparkles } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Language } from "@/lib/i18n";
 
 interface NavbarProps {
-  searchQuery: string;
-  onSearchChange: (q: string) => void;
   isFirebaseActive?: boolean;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({
-  searchQuery,
-  onSearchChange,
-}) => {
+export const Navbar: React.FC<NavbarProps> = () => {
   const { lang, setLang, t } = useLanguage();
-  const [isSearchFocused, setIsSearchFocused] = useState(false);
 
   const languages: { code: Language; short: string; label: string }[] = [
     { code: "th", short: "TH", label: "ไทย" },
@@ -26,11 +20,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-xl border-b border-slate-200/80 transition-all">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-xl border-b border-slate-200/80 transition-all">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-4 lg:gap-6">
+        <div className="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-4">
           {/* Brand Logo & Corporate Info */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-3.5 group shrink min-w-0">
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3.5 group shrink min-w-0">
             <div className="relative flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 rounded-xl sm:rounded-2xl bg-white p-1 border border-slate-200/90 shadow-xs group-hover:border-[#219990]/40 group-hover:shadow-md transition-all duration-300 shrink-0">
               <img
                 src="/chicailogo.jpg"
@@ -55,49 +49,12 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </Link>
 
-          {/* Centralized Search Bar (Responsive & Fluid) */}
-          <div className="flex-1 max-w-sm hidden md:block">
-            <div
-              className={`relative flex items-center transition-all duration-200 ${
-                isSearchFocused ? "scale-[1.02]" : ""
-              }`}
-            >
-              <Search
-                className={`absolute left-3.5 w-4 h-4 transition-colors ${
-                  isSearchFocused ? "text-[#219990]" : "text-slate-400"
-                }`}
-              />
-              <input
-                type="text"
-                placeholder={t.searchPlaceholder}
-                value={searchQuery}
-                onFocus={() => setIsSearchFocused(true)}
-                onBlur={() => setIsSearchFocused(false)}
-                onChange={(e) => onSearchChange(e.target.value)}
-                className={`w-full pl-10 pr-9 py-2.5 text-xs rounded-2xl outline-hidden transition-all duration-200 ${
-                  isSearchFocused
-                    ? "bg-white border-2 border-[#219990] shadow-lg shadow-[#219990]/10 text-slate-900"
-                    : "bg-slate-100/90 hover:bg-slate-100 border border-slate-200 text-slate-700"
-                }`}
-              />
-              {searchQuery && (
-                <button
-                  type="button"
-                  onClick={() => onSearchChange("")}
-                  className="absolute right-3 p-0.5 rounded-full hover:bg-slate-200 text-slate-400 hover:text-slate-600 transition cursor-pointer"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              )}
-            </div>
-          </div>
-
           {/* Right Navigation & Action Cluster */}
-          <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
             {/* Master Catalog Action Link */}
             <Link
               href="/catalog"
-              className="p-2 sm:px-3 sm:py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-xl transition-all cursor-pointer border border-slate-200/80 flex items-center gap-1.5 active:scale-95 touch-manipulation"
+              className="p-2 sm:px-3.5 sm:py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-xl transition-all cursor-pointer border border-slate-200/80 flex items-center gap-1.5 active:scale-95 touch-manipulation"
               title={t.masterCatalogBtn}
             >
               <BookOpen className="w-4 h-4 text-[#219990]" />
@@ -109,7 +66,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               href="https://line.me/ti/p/htYYhK-o1q"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-2.5 sm:px-3.5 py-2 bg-[#06C755] hover:bg-[#05b34c] text-white text-xs font-bold rounded-xl shadow-md shadow-[#06C755]/25 transition cursor-pointer flex items-center gap-1 active:scale-95 touch-manipulation"
+              className="px-2.5 sm:px-3.5 py-2 bg-[#06C755] hover:bg-[#05b34c] text-white text-xs font-bold rounded-xl shadow-md shadow-[#06C755]/25 transition cursor-pointer flex items-center gap-1 sm:gap-1.5 active:scale-95 touch-manipulation"
               title="แชตติดต่อคุณเอกชัยทาง LINE"
             >
               <span className="text-sm leading-none font-black">💬</span>
@@ -146,29 +103,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <Settings className="w-4 h-4" />
             </Link>
-          </div>
-        </div>
-
-        {/* Mobile Search Bar (Appears under header when on phone screens) */}
-        <div className="pb-3 md:hidden">
-          <div className="relative flex items-center">
-            <Search className="absolute left-3.5 w-4 h-4 text-slate-400" />
-            <input
-              type="text"
-              placeholder={t.searchPlaceholder}
-              value={searchQuery}
-              onChange={(e) => onSearchChange(e.target.value)}
-              className="w-full pl-10 pr-9 py-2 text-xs bg-slate-100 border border-slate-200 rounded-xl outline-hidden text-slate-900"
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                onClick={() => onSearchChange("")}
-                className="absolute right-3 p-0.5 text-slate-400"
-              >
-                <X className="w-3.5 h-3.5" />
-              </button>
-            )}
           </div>
         </div>
       </div>
