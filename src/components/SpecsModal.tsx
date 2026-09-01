@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { X, FileText, Check, ShieldCheck, ShieldOff, Wrench, Layers, Printer } from "lucide-react";
+import { X, FileText, Check, ShieldCheck, ShieldOff, Wrench, Layers } from "lucide-react";
 import { Language, translations, translateSpecValue, formatWarranty } from "@/lib/i18n";
 
 interface SpecsModalProps {
@@ -295,18 +295,8 @@ export const SpecsModal: React.FC<SpecsModalProps> = ({
 
             <button
               type="button"
-              onClick={() => window.open(`/datasheet/${product.id}`, "_blank")}
-              className="py-2.5 sm:py-3 px-4 text-xs font-bold text-[#145853] bg-emerald-50 hover:bg-emerald-100 border border-emerald-300/80 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-2xs active:scale-98 touch-manipulation order-2 sm:order-1"
-              title={t.specsFlyerBtn}
-            >
-              <Printer className="w-4 h-4 text-[#219990]" />
-              <span>{t.specsFlyerBtn}</span>
-            </button>
-
-            <button
-              type="button"
               onClick={onClose}
-              className="py-2.5 sm:py-3 px-5 text-xs font-bold text-gray-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition cursor-pointer active:scale-98 touch-manipulation order-3"
+              className="py-2.5 sm:py-3 px-5 text-xs font-bold text-gray-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition cursor-pointer active:scale-98 touch-manipulation order-2"
             >
               {lang === "zh" ? "✕ 关闭" : lang === "en" ? "✕ Close" : "✕ ปิด"}
             </button>
