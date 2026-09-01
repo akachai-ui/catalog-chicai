@@ -23,7 +23,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { toJpeg } from "html-to-image";
-import { translations, Language, translateSpecValue } from "@/lib/i18n";
+import { translations, Language, translateSpecValue, formatWarranty } from "@/lib/i18n";
 
 function translateVariant(variant: string | undefined, lang: Language): string {
   if (!variant) return "";
@@ -519,7 +519,7 @@ export default function CatalogDatasheetPage() {
                 </div>
                 <div className="text-right hidden sm:block">
                   <span className="inline-block px-2.5 py-1 bg-[#219990] text-white font-bold text-[10px] rounded-lg">
-                    {product.warranty || t.h3Title}
+                    {formatWarranty(product.warranty, lang).text}
                   </span>
                 </div>
               </div>
@@ -544,7 +544,9 @@ export default function CatalogDatasheetPage() {
 
             <div className="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 flex flex-col items-center text-center">
               <ShieldCheck className="w-5 h-5 text-[#219990] mb-1.5 shrink-0" />
-              <div className="font-bold text-gray-900 text-[11px]">{product.warranty || t.h3Title}</div>
+              <div className="font-bold text-gray-900 text-[11px]">
+                {formatWarranty(product.warranty, lang).text}
+              </div>
               <div className="text-[10px] text-gray-500 mt-0.5">{t.h3Desc}</div>
             </div>
 

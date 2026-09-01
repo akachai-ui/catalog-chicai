@@ -520,3 +520,64 @@ export function translateSpecValue(
 
   return res;
 }
+
+/**
+ * Format and translate warranty from database value
+ * Handles 0, "0", custom text, and multilingual rendering
+ */
+export function formatWarranty(
+  warranty: any,
+  lang: Language = "th"
+): { text: string; isNoWarranty: boolean } {
+  if (warranty === undefined || warranty === null) {
+    return {
+      text:
+        lang === "zh"
+          ? "整机质保 2 年 (现场服务)"
+          : lang === "en"
+          ? "2-Year On-site Warranty"
+          : "รับประกัน 2 ปี On-site Service",
+      isNoWarranty: false,
+    };
+  }
+
+  const str = String(warranty).trim();
+
+  // If 0, "0", or explicitly no warranty in database
+  if (
+    str === "0" ||
+    str === "ไม่มี" ||
+    str === "ไม่มีการรับประกัน" ||
+    str.toLowerCase() === "none" ||
+    str.toLowerCase() === "no"
+  ) {
+    return {
+      text:
+        lang === "zh"
+          ? "无保修"
+          : lang === "en"
+          ? "No Warranty"
+          : "ไม่มีการรับประกัน",
+      isNoWarranty: true,
+    };
+  }
+
+  // Multilingual translation for standard phrases
+  if (lang === "zh") {
+    if (str.includes("1 ปี") || str.includes("1 year")) return { text: "质保 1 年 (现场服务)", isNoWarranty: false };
+    if (str.includes("2 ปี") || str.includes("2 year")) return { text: "整机质保 2 年 (现场服务)", isNoWarranty: false };
+    if (str.includes("3 ปี") || str.includes("3 year")) return { text: "质保 3 年 (现场服务)", isNoWarranty: false };
+    if (str.includes("5 ปี") || str.includes("5 year")) return { text: "质保 5 年 (现场服务)", isNoWarranty: false };
+  } else if (lang === "en") {
+    if (str.includes("1 ปี") || str.includes("1 year")) return { text: "1-Year On-site Warranty", isNoWarranty: false };
+    if (str.includes("2 ปี") || str.includes("2 year")) return { text: "2-Year On-site Warranty", isNoWarranty: false };
+    if (str.includes("3 ปี") || str.includes("3 year")) return { text: "3-Year On-site Warranty", isNoWarranty: false };
+    if (str.includes("5 ปี") || str.includes("5 year")) return { text: "5-Year On-site Warranty", isNoWarranty: false };
+  }
+
+  return {
+    text: str,
+    isNoWarranty: false,
+  };
+}
+

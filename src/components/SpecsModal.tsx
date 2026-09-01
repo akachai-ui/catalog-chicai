@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { X, FileText, Check, ShieldCheck, Wrench, Layers, Printer } from "lucide-react";
-import { Language, translations, translateSpecValue } from "@/lib/i18n";
+import { X, FileText, Check, ShieldCheck, ShieldOff, Wrench, Layers, Printer } from "lucide-react";
+import { Language, translations, translateSpecValue, formatWarranty } from "@/lib/i18n";
 
 interface SpecsModalProps {
   product: any | null;
@@ -110,16 +110,20 @@ export const SpecsModal: React.FC<SpecsModalProps> = ({
               {t.salesPriceLabel} {t.exclVat}
             </div>
             <div className="mt-2 flex flex-wrap items-center justify-center gap-1.5">
-              <div className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full text-[10px] sm:text-xs font-semibold">
-                <ShieldCheck className="w-3 h-3 text-emerald-600 shrink-0" />
-                <span>
-                  {lang === "zh"
-                    ? "整机质保 2 年 (现场服务)"
-                    : lang === "en"
-                    ? "2-Year On-site Warranty"
-                    : "รับประกัน 2 ปี On-site Service"}
-                </span>
-              </div>
+              {(() => {
+                const warrantyInfo = formatWarranty(product.warranty, lang);
+                return warrantyInfo.isNoWarranty ? (
+                  <div className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-slate-100 text-slate-600 border border-slate-200 rounded-full text-[10px] sm:text-xs font-semibold">
+                    <ShieldOff className="w-3 h-3 text-slate-400 shrink-0" />
+                    <span>{warrantyInfo.text}</span>
+                  </div>
+                ) : (
+                  <div className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full text-[10px] sm:text-xs font-semibold">
+                    <ShieldCheck className="w-3 h-3 text-emerald-600 shrink-0" />
+                    <span>{warrantyInfo.text}</span>
+                  </div>
+                );
+              })()}
 
               {product.stock_status === "pre_order" ? (
                 <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-amber-50 text-amber-800 border border-amber-200 rounded-full text-[10px] sm:text-xs font-semibold">

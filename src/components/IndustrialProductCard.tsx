@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { FileText, Check, Layers, Gauge, Target, Zap, ShieldCheck, Clock, Play, X } from "lucide-react";
-import { Language } from "@/lib/i18n";
+import { FileText, Check, Layers, Gauge, Target, Zap, ShieldCheck, ShieldOff, Clock, Play, X } from "lucide-react";
+import { Language, formatWarranty } from "@/lib/i18n";
 
 interface IndustrialProductCardProps {
   product: any;
@@ -76,11 +76,7 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
         en: "In Stock 1-3 Days",
       }[lang];
 
-  const warrantyText = {
-    th: "รับประกัน 2 ปี On-site Service",
-    zh: "整机质保 2 年 (上门现场服务)",
-    en: "2-Year On-site Warranty",
-  }[lang];
+  const warrantyInfo = formatWarranty(product.warranty, lang);
 
   const variantDisplay = (() => {
     const v = product.variant;
@@ -354,11 +350,18 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
 
         {/* Price & Actions */}
         <div className="mt-auto pt-3 border-t border-slate-100 space-y-2">
-          {/* Warranty Badge */}
-          <div className="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700">
-            <ShieldCheck className="w-3.5 h-3.5 shrink-0 text-emerald-600" />
-            <span>{warrantyText}</span>
-          </div>
+          {/* Warranty Badge (Linked with Database) */}
+          {warrantyInfo.isNoWarranty ? (
+            <div className="flex items-center gap-1.5 text-[11px] font-medium text-slate-400">
+              <ShieldOff className="w-3.5 h-3.5 shrink-0 text-slate-400" />
+              <span>{warrantyInfo.text}</span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-1.5 text-[11px] font-semibold text-emerald-700">
+              <ShieldCheck className="w-3.5 h-3.5 shrink-0 text-emerald-600" />
+              <span>{warrantyInfo.text}</span>
+            </div>
+          )}
 
           <div className="flex items-end justify-between gap-3">
             <div>
