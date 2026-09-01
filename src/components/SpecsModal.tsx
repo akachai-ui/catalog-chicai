@@ -72,54 +72,55 @@ export const SpecsModal: React.FC<SpecsModalProps> = ({
 
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
       <div
-        className="relative w-full max-w-4xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[92vh]"
+        className="relative w-full max-w-4xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row max-h-[90vh] sm:max-h-[92vh]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/90 hover:bg-white text-gray-700 shadow-md transition cursor-pointer"
+          className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 p-2 rounded-full bg-white/90 hover:bg-white text-gray-700 shadow-md transition cursor-pointer active:scale-95"
+          title="ปิดหน้าต่าง"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
 
         {/* Left: Image & Model */}
-        <div className="md:w-5/12 bg-slate-50 p-6 flex flex-col items-center justify-center border-r border-slate-100 min-h-[250px] md:min-h-[500px]">
-          <div className="w-full aspect-4/3 flex items-center justify-center p-2">
+        <div className="md:w-5/12 bg-slate-50 p-4 sm:p-6 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-slate-100 shrink-0">
+          <div className="w-full flex items-center justify-center p-1 sm:p-2">
             <img
               src={imgUrl}
               alt={name}
-              className="max-h-[320px] max-w-full object-contain rounded-2xl"
+              className="max-h-[140px] sm:max-h-[220px] md:max-h-[300px] max-w-full object-contain rounded-xl sm:rounded-2xl"
               onError={(e) => {
                 (e.target as any).src = "/chicailogo.jpg";
               }}
             />
           </div>
 
-          <div className="mt-4 text-center">
-            <span className="inline-block px-3 py-1 bg-slate-900 text-white rounded-full text-xs font-mono font-bold">
+          <div className="mt-2 sm:mt-4 text-center">
+            <span className="inline-block px-2.5 py-0.5 sm:px-3 sm:py-1 bg-slate-900 text-white rounded-full text-[10px] sm:text-xs font-mono font-bold">
               SKU: {product.sku || product.model}
             </span>
-            <div className="text-xl font-black text-[#219990] mt-2">
+            <div className="text-lg sm:text-xl font-black text-[#219990] mt-1 sm:mt-2">
               ฿{(product.sales_price || 0).toLocaleString()}
             </div>
-            <div className="text-[11px] text-gray-400">
+            <div className="text-[10px] sm:text-[11px] text-gray-400">
               {t.salesPriceLabel} {t.exclVat}
             </div>
-            <div className="mt-2.5 inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full text-xs font-semibold">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span>{product.warranty || "รับประกัน 2 ปี On-site Service"}</span>
-            </div>
+            <div className="mt-2 flex flex-wrap items-center justify-center gap-1.5">
+              <div className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full text-[10px] sm:text-xs font-semibold">
+                <ShieldCheck className="w-3 h-3 text-emerald-600 shrink-0" />
+                <span>{product.warranty || "รับประกัน 2 ปี On-site Service"}</span>
+              </div>
 
-            <div className="mt-1.5">
               {product.stock_status === "pre_order" ? (
-                <span className="inline-flex items-center gap-1 px-3 py-1 bg-amber-50 text-amber-800 border border-amber-200 rounded-full text-xs font-semibold">
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-amber-50 text-amber-800 border border-amber-200 rounded-full text-[10px] sm:text-xs font-semibold">
                   <span>⏳ {product.lead_time || "Pre-order 15-30 วัน"}</span>
                 </span>
               ) : (
-                <span className="inline-flex items-center gap-1 px-3 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full text-xs font-semibold">
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-full text-[10px] sm:text-xs font-semibold">
                   <span>✓ {product.lead_time || "มีสินค้าพร้อมส่ง 1-3 วัน"}</span>
                 </span>
               )}
@@ -128,7 +129,7 @@ export const SpecsModal: React.FC<SpecsModalProps> = ({
         </div>
 
         {/* Right: Technical Specs Table */}
-        <div className="p-6 md:w-7/12 flex flex-col overflow-y-auto">
+        <div className="p-4 sm:p-6 md:w-7/12 flex flex-col overflow-y-auto overscroll-contain">
           <div>
             <div className="inline-block px-2.5 py-0.5 rounded-full bg-[#219990]/15 text-[#145853] text-xs font-bold mb-2">
               {product.model} {product.variant ? `• ${product.variant}` : ""}
@@ -229,22 +230,12 @@ export const SpecsModal: React.FC<SpecsModalProps> = ({
           </div>
 
           {/* Action Row: Print Datasheet, LINE Contact & Close */}
-          <div className="mt-auto pt-6 flex flex-wrap items-center justify-end gap-3 border-t border-slate-100">
-            <button
-              type="button"
-              onClick={() => window.open(`/datasheet/${product.id}`, "_blank")}
-              className="py-3 px-4 text-xs font-bold text-[#145853] bg-emerald-50 hover:bg-emerald-100 border border-emerald-300/80 rounded-xl transition flex items-center gap-2 cursor-pointer shadow-2xs"
-              title={t.specsFlyerBtn}
-            >
-              <Printer className="w-4 h-4 text-[#219990]" />
-              <span>{t.specsFlyerBtn}</span>
-            </button>
-
+          <div className="mt-auto pt-4 sm:pt-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-2 sm:gap-3 border-t border-slate-100">
             <a
               href="https://line.me/ti/p/htYYhK-o1q"
               target="_blank"
               rel="noopener noreferrer"
-              className="py-3 px-5 text-xs font-bold text-white bg-[#06C755] hover:bg-[#05b34c] rounded-xl shadow-md shadow-[#06C755]/20 transition flex items-center gap-2 cursor-pointer"
+              className="py-3 px-5 text-xs font-bold text-white bg-[#06C755] hover:bg-[#05b34c] rounded-xl shadow-md shadow-[#06C755]/20 transition flex items-center justify-center gap-2 cursor-pointer active:scale-98 touch-manipulation order-1 sm:order-2"
               title="ปรึกษาหรือสั่งซื้อทาง LINE กับคุณเอกชัย"
             >
               <span className="text-sm leading-none font-black">💬</span>
@@ -253,8 +244,18 @@ export const SpecsModal: React.FC<SpecsModalProps> = ({
 
             <button
               type="button"
+              onClick={() => window.open(`/datasheet/${product.id}`, "_blank")}
+              className="py-2.5 sm:py-3 px-4 text-xs font-bold text-[#145853] bg-emerald-50 hover:bg-emerald-100 border border-emerald-300/80 rounded-xl transition flex items-center justify-center gap-2 cursor-pointer shadow-2xs active:scale-98 touch-manipulation order-2 sm:order-1"
+              title={t.specsFlyerBtn}
+            >
+              <Printer className="w-4 h-4 text-[#219990]" />
+              <span>{t.specsFlyerBtn}</span>
+            </button>
+
+            <button
+              type="button"
               onClick={onClose}
-              className="py-3 px-5 text-xs font-bold text-gray-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition cursor-pointer"
+              className="py-2.5 sm:py-3 px-5 text-xs font-bold text-gray-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition cursor-pointer active:scale-98 touch-manipulation order-3"
             >
               ✕ ปิด
             </button>

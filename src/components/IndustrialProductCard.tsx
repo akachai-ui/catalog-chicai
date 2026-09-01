@@ -222,7 +222,7 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
                   e.stopPropagation();
                   setIsPlayingVideo(true);
                 }}
-                className="absolute inset-0 m-auto w-12 h-12 rounded-full bg-slate-950/75 hover:bg-red-600 text-white flex items-center justify-center shadow-xl backdrop-blur-xs transition-all duration-300 hover:scale-115 z-20 group/play cursor-pointer border border-white/40 opacity-90 hover:opacity-100"
+                className="absolute inset-0 m-auto w-12 h-12 rounded-full bg-slate-950/75 hover:bg-red-600 text-white flex items-center justify-center shadow-xl backdrop-blur-xs transition-all duration-300 hover:scale-115 active:scale-90 z-20 group/play cursor-pointer border border-white/40 opacity-90 hover:opacity-100 touch-manipulation"
                 title="คลิกเพื่อเล่นวิดีโอสาธิตในช่องนี้ทันที"
               >
                 <Play className="w-5 h-5 fill-white translate-x-0.5" />
@@ -348,7 +348,7 @@ export const IndustrialProductCard: React.FC<IndustrialProductCardProps> = ({
             <button
               type="button"
               onClick={() => onViewSpecs(product)}
-              className="px-4 py-2 text-xs font-bold text-white bg-[#219990] hover:bg-[#1b7e76] rounded-xl shadow-md shadow-[#219990]/20 transition cursor-pointer"
+              className="px-4 py-2 text-xs font-bold text-white bg-[#219990] hover:bg-[#1b7e76] rounded-xl shadow-md shadow-[#219990]/20 transition cursor-pointer active:scale-95 touch-manipulation"
             >
               {btnSpecs}
             </button>

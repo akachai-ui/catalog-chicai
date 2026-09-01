@@ -426,10 +426,15 @@ export default function MasterCatalogPage() {
         </div>
       </div>
 
+      {/* Mobile view tip */}
+      <div className="max-w-[794px] mx-auto mb-3 md:hidden text-center text-[11px] text-slate-500 bg-white/70 backdrop-blur-xs py-1.5 px-3 rounded-xl border border-slate-200">
+        💡 แนะนำ: เลื่อนหน้าจอซ้าย-ขวา หรือถือสมาร์ทโฟนแนวนอนเพื่ออ่านเล่มแคตตาล็อก A4 ได้สะดวกยิ่งขึ้นครับ
+      </div>
+
       {/* ============================================================ */}
       {/* 4 BALANCED A4 PAGES CONTAINER (210mm x 297mm EACH)          */}
       {/* ============================================================ */}
-      <div className="w-full flex flex-col items-center gap-8 print:gap-0 pb-12">
+      <div className="w-full flex flex-col items-center gap-8 print:gap-0 pb-12 overflow-x-auto">
         {/* ========================================================== */}
         {/* PAGE 1: COVER & CORPORATE SOLUTION OVERVIEW (A4)           */}
         {/* ========================================================== */}
