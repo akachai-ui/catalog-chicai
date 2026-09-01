@@ -367,6 +367,10 @@ export default function CatalogDatasheetPage() {
     { key: "weight", value: translateSpecValue(product.specs?.weight, lang) },
   ].filter((s) => s.value && s.value !== "-");
 
+  const topSpec1 = specsList.find((s) => s.key === "flowRate")?.value || specsList[0]?.value || "-";
+  const topSpec2 = specsList.find((s) => s.key === "precision")?.value || specsList[1]?.value || "-";
+  const topSpec3 = specsList.find((s) => s.key === "airPressure" || s.key === "power")?.value || specsList[2]?.value || "-";
+
   return (
     <div className="min-h-screen bg-slate-200/90 py-6 sm:py-10 px-2 sm:px-4 font-sans text-slate-900 print:bg-white print:p-0">
       {/* Floating Control Bar for Sales & Line Sharing */}
@@ -390,7 +394,7 @@ export default function CatalogDatasheetPage() {
             }`}
           >
             <span>🎨</span>
-            <span>{lang === "zh" ? "800x800 广告画册" : lang === "en" ? "800x800 Ad Artwork" : "Artwork 800x800 px"}</span>
+            <span>{lang === "zh" ? "工业展会海报 (Exhibition)" : lang === "en" ? "Exhibition Poster" : "โปสเตอร์โฆษณา (Exhibition)"}</span>
           </button>
 
           <button
@@ -450,248 +454,158 @@ export default function CatalogDatasheetPage() {
       <div className="w-full flex justify-center overflow-x-auto pb-8">
         {viewMode === "poster" ? (
           /* ============================================================ */
-          /* 800x800 PX MACHINE ARTWORK (ขนาด 800x800 เน้นข้อมูลเครื่อง)  */
+          /* CINEMATIC EXHIBITION POSTER (ตามแบบรูปที่แนบมา ในโทนสี Chicai)   */
           /* ============================================================ */
           <div
             ref={catalogRef}
             id="catalog-flyer"
-            className="w-[800px] h-[800px] min-w-[800px] min-h-[800px] max-w-[800px] max-h-[800px] box-border bg-gradient-to-b from-[#031513] via-[#072621] to-[#020e0c] text-white rounded-3xl shadow-2xl overflow-hidden border border-emerald-800/40 relative flex flex-col justify-between print:shadow-none print:rounded-none print:border-none print:w-full print:min-w-0"
+            className="w-[760px] min-w-[760px] max-w-[760px] min-h-[1050px] bg-gradient-to-b from-[#020d0b] via-[#072420] via-45% to-[#010807] text-white rounded-[36px] shadow-2xl overflow-hidden border border-emerald-500/25 relative flex flex-col justify-between p-7 sm:p-9 print:shadow-none print:rounded-none print:border-none print:w-full print:min-w-0"
           >
-            {/* Background Decorative Tech Grid & Glows */}
-            <div className="absolute inset-0 bg-[radial-gradient(#219990_1px,transparent_1px)] [background-size:20px_20px] opacity-10 pointer-events-none" />
-            <div className="absolute -top-16 -right-16 w-80 h-80 bg-[#219990]/25 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute top-1/2 -left-20 w-80 h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-10 -right-10 w-80 h-80 bg-[#219990]/20 rounded-full blur-3xl pointer-events-none" />
+            {/* Dramatic Atmospheric Sunset & Cloud Effects (Matching Reference Photo) */}
+            <div className="absolute top-0 inset-x-0 h-[480px] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/25 via-[#219990]/20 to-transparent pointer-events-none" />
+            <div className="absolute top-1/4 -right-16 w-96 h-96 bg-[#219990]/20 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-1/3 -left-16 w-80 h-80 bg-amber-500/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(#219990_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
 
-            {/* 1. TOP HEADER (Height: 56px) */}
-            <div className="relative z-10 px-5 py-2.5 border-b border-white/10 bg-black/40 backdrop-blur-xs flex items-center justify-between shrink-0">
+            {/* 1. TOP BRAND SIGNATURE BAR */}
+            <div className="relative z-10 flex items-center justify-between gap-4 pb-4 border-b border-white/10">
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 bg-white p-1 rounded-xl flex items-center justify-center shadow-md shrink-0">
+                <div className="w-10 h-10 bg-white p-1 rounded-2xl flex items-center justify-center shadow-md shrink-0 border border-white/20">
                   <img
                     src="/chicailogo.jpg"
                     alt="Chicai Logo"
-                    className="max-h-full max-w-full object-contain rounded-md"
+                    className="max-h-full max-w-full object-contain rounded-lg"
                   />
                 </div>
                 <div>
-                  <div className="text-sm font-black text-white flex items-center gap-2 leading-none">
-                    <span>{t.companyName}</span>
-                    <span className="px-1.5 py-0.5 rounded-sm bg-emerald-500/20 text-emerald-300 text-[9px] font-bold border border-emerald-400/30">
-                      OFFICIAL
-                    </span>
+                  <div className="text-sm font-black text-white tracking-wide">
+                    {t.companyName}
                   </div>
-                  <div className="text-[10px] text-emerald-400 font-mono mt-0.5 leading-none">
+                  <div className="text-[10px] text-emerald-400 font-mono tracking-wider">
                     {t.companySubName}
                   </div>
                 </div>
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="px-2.5 py-1 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 rounded-full text-[9px] font-black uppercase shadow-xs">
-                  ★ INDUSTRIAL SPECIFICATION
+                <span className="px-3 py-1 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 rounded-full text-[10px] font-black uppercase tracking-wider shadow-sm">
+                  ★ INDUSTRIAL EXHIBITION
                 </span>
-                <span className="px-2.5 py-1 bg-white/10 text-emerald-300 rounded-full text-[10px] font-mono font-bold border border-white/15">
-                  MODEL: {product.model}
+                <span className="px-3 py-1 bg-white/10 text-emerald-300 rounded-full text-[10px] font-mono font-bold border border-white/15">
+                  {product.lead_time || "พร้อมส่ง 1-3 วัน"}
                 </span>
               </div>
             </div>
 
-            {/* 2. MIDDLE MACHINE BODY (Height: 676px, 2-Column Grid) */}
-            <div className="relative z-10 flex-1 p-5 grid grid-cols-12 gap-4 overflow-hidden">
-              {/* Left Column: Machine Stage & Commercial Price (5 Columns) */}
-              <div className="col-span-5 flex flex-col justify-between h-full space-y-3">
-                {/* 3D Spotlight Stage */}
-                <div className="relative flex-1 rounded-2xl bg-gradient-to-b from-white/10 via-white/5 to-black/30 border border-white/15 p-3.5 flex flex-col items-center justify-between shadow-xl backdrop-blur-xs overflow-hidden">
-                  <div className="absolute inset-0 m-auto w-40 h-40 rounded-full bg-[#219990]/35 blur-2xl pointer-events-none" />
-
-                  {/* Top Badges */}
-                  <div className="w-full flex items-center justify-between gap-1 z-10">
-                    <span className="px-2 py-0.5 rounded-md bg-amber-400 text-slate-950 text-[9px] font-black shadow-xs">
-                      ⚡ DEMO FREE
-                    </span>
-                    <span className="px-2 py-0.5 rounded-md bg-emerald-500/30 text-emerald-200 border border-emerald-400/40 text-[9px] font-bold">
-                      {product.lead_time || "พร้อมส่ง 1-3 วัน"}
-                    </span>
-                  </div>
-
-                  {/* Machine Photo */}
-                  <div className="relative z-10 w-full flex-1 flex items-center justify-center p-1">
-                    <img
-                      src={imgUrl}
-                      alt={name}
-                      className="max-h-[220px] max-w-full w-auto h-auto object-contain drop-shadow-[0_15px_20px_rgba(0,0,0,0.8)]"
-                      onError={(e) => {
-                        (e.target as any).src = "/chicailogo.jpg";
-                      }}
-                    />
-                  </div>
-
-                  {/* Stage Bottom Bar */}
-                  <div className="w-full pt-2 border-t border-white/15 flex items-center justify-between text-[10px] z-10">
-                    <span className="font-mono font-bold text-slate-300">
-                      SKU: {product.sku || product.model}
-                    </span>
-                    <span className="text-emerald-300 font-bold">
-                      {product.variant ? translateVariant(product.variant, lang) : "มาตรฐาน"}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Compact Special Price Card */}
-                <div className="p-3 rounded-2xl bg-gradient-to-r from-emerald-950 via-[#0d3b37] to-[#145853] border border-emerald-400/40 shadow-lg shrink-0">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <div className="text-[9px] text-emerald-300 font-bold uppercase tracking-wider flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                        <span>{lang === "zh" ? "特惠售价" : lang === "en" ? "Special Price" : "ราคาพิเศษ (ไม่รวม VAT)"}</span>
-                      </div>
-                      <div className="text-2xl font-black text-white tracking-tight mt-0.5">
-                        ฿{(product.sales_price || 0).toLocaleString()}
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="px-2.5 py-0.5 bg-white text-slate-900 text-[10px] font-black rounded-lg shadow-xs">
-                        {formatWarranty(product.warranty, lang).text}
-                      </div>
-                      <div className="text-[9px] text-emerald-200 mt-1 font-medium">
-                        ✓ หักค่าใช้จ่ายบริษัทได้
-                      </div>
-                    </div>
-                  </div>
-                </div>
+            {/* 2. HERO MACHINE SHOWCASE (Dominating Upper Section with Horizon Stage) */}
+            <div className="relative z-10 flex-1 flex flex-col items-center justify-center py-6">
+              {/* Floating Badge Tag */}
+              <div className="mb-4 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-400/20 text-amber-300 text-xs font-semibold border border-amber-400/30 backdrop-blur-md">
+                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                <span>
+                  {lang === "zh"
+                    ? "🔥 节能降耗 • 延长油液与设备寿命 70%+"
+                    : lang === "en"
+                    ? "🔥 High Performance • Extends Fluid & Tool Life by 70%+"
+                    : "🔥 โซลูชันลดต้นทุนน้ำมันและของเหลวหล่อเย็นได้ทันที 70%+"}
+                </span>
               </div>
 
-              {/* Right Column: Title, Specs & Machine Parameters (7 Columns) */}
-              <div className="col-span-7 flex flex-col justify-between h-full space-y-2.5 overflow-hidden">
-                {/* Product Name & Short Info */}
-                <div>
-                  <div className="flex items-center gap-1.5 mb-1 flex-wrap">
-                    <span className="px-2 py-0.5 bg-[#219990] text-white rounded-md text-[10px] font-bold">
-                      {catLabel}
-                    </span>
-                    {product.variant && (
-                      <span className="px-2 py-0.5 bg-white/15 text-emerald-200 rounded-md text-[10px] font-bold">
-                        {translateVariant(product.variant, lang)}
-                      </span>
-                    )}
-                    <span className="px-2 py-0.5 bg-amber-400/20 text-amber-300 rounded-md text-[9px] font-bold">
-                      ✓ ลดต้นทุน 70%+
-                    </span>
-                  </div>
+              {/* Machine Picture Perched on Industrial Horizon */}
+              <div className="relative w-full max-w-[480px] aspect-4/3 flex items-center justify-center my-2">
+                {/* Horizon Glow & Radial Spotlight behind machine */}
+                <div className="absolute inset-0 m-auto w-72 h-72 rounded-full bg-[#219990]/35 blur-3xl pointer-events-none" />
+                <div className="absolute bottom-4 inset-x-12 h-10 bg-black/80 rounded-full blur-xl pointer-events-none" />
 
-                  <h1 className="text-xl font-black text-white leading-tight line-clamp-2">
-                    {name}
-                  </h1>
+                <img
+                  src={imgUrl}
+                  alt={name}
+                  className="relative z-10 max-h-[300px] sm:max-h-[330px] max-w-full w-auto h-auto object-contain drop-shadow-[0_25px_30px_rgba(0,0,0,0.85)] hover:scale-105 transition-transform duration-500"
+                  onError={(e) => {
+                    (e.target as any).src = "/chicailogo.jpg";
+                  }}
+                />
+              </div>
 
-                  {feature && (
-                    <p className="text-[11px] text-emerald-100/80 leading-snug mt-1 line-clamp-2">
-                      {feature}
-                    </p>
-                  )}
+              {/* 3. CINEMATIC HERO TYPOGRAPHY (Matching "CONSTRUCTION EXHIBITION" in reference photo) */}
+              <div className="mt-4 text-center space-y-1">
+                {/* Line 1 (like "CONSTRUCTION" in bronze/gold condensed font) */}
+                <div className="text-xl sm:text-2xl font-black tracking-[0.28em] text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-100 to-amber-400 uppercase drop-shadow-sm font-sans">
+                  {catLabel}
                 </div>
 
-                {/* 4 Feature Badges (2x2 grid) */}
-                <div className="grid grid-cols-2 gap-1.5 text-[10px]">
-                  <div className="p-1.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-1.5">
-                    <Droplets className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span className="truncate font-semibold text-slate-200">{t.h1Title}</span>
-                  </div>
-                  <div className="p-1.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-1.5">
-                    <Target className="w-3.5 h-3.5 text-[#219990] shrink-0" />
-                    <span className="truncate font-semibold text-slate-200">{t.h2Title}</span>
-                  </div>
-                  <div className="p-1.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-1.5">
-                    <ShieldCheck className="w-3.5 h-3.5 text-amber-300 shrink-0" />
-                    <span className="truncate font-semibold text-slate-200">{formatWarranty(product.warranty, lang).text}</span>
-                  </div>
-                  <div className="p-1.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-1.5">
-                    <Wrench className="w-3.5 h-3.5 text-blue-300 shrink-0" />
-                    <span className="truncate font-semibold text-slate-200">{t.h4Title}</span>
-                  </div>
+                {/* Line 2 (like "EXHIBITION" in giant, elegant, airy glowing font) */}
+                <div className="text-5xl sm:text-6xl md:text-7xl font-extralight tracking-[0.16em] text-emerald-300 uppercase font-mono drop-shadow-[0_0_30px_rgba(33,153,144,0.55)] leading-none pt-1">
+                  {product.model}
                 </div>
 
-                {/* Technical Specifications Grid (Core Machine Specs) */}
-                <div className="flex-1 flex flex-col justify-start">
-                  <div className="flex items-center gap-1.5 mb-1 pb-1 border-b border-white/15">
-                    <Gauge className="w-3.5 h-3.5 text-emerald-400" />
-                    <h3 className="text-[10px] font-black text-white uppercase tracking-wider">
-                      {t.flyerSpecsTitle}
-                    </h3>
-                  </div>
-
-                  <div className="grid grid-cols-1 gap-1 text-[10px]">
-                    {specsList.slice(0, 5).map((s, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-center justify-between px-2 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg"
-                      >
-                        <span className="text-slate-400 font-medium">
-                          {specLabels[s.key] || s.key}
-                        </span>
-                        <span className="font-bold text-white text-right font-mono max-w-[60%] truncate">
-                          {s.value}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
+                {/* Subtitle / Product Full Name */}
+                <div className="text-xs sm:text-sm tracking-[0.18em] text-emerald-100/80 uppercase font-light pt-1.5">
+                  {name} {product.variant ? `• ${translateVariant(product.variant, lang)}` : ""}
                 </div>
-
-                {/* Applicable Fluids & Compatible Machinery Chips */}
-                {((product.applicable_fluids && product.applicable_fluids.length > 0) ||
-                  (product.compatible_machinery && product.compatible_machinery.length > 0)) && (
-                  <div className="p-2 rounded-xl bg-white/5 border border-white/10 space-y-1 text-[10px]">
-                    {product.applicable_fluids && product.applicable_fluids.length > 0 && (
-                      <div className="flex items-center gap-1.5 overflow-hidden">
-                        <span className="text-emerald-300 font-bold shrink-0">💧 ของเหลว:</span>
-                        <div className="flex gap-1 overflow-hidden truncate">
-                          {product.applicable_fluids.slice(0, 3).map((f: string, fIdx: number) => (
-                            <span key={fIdx} className="px-1.5 py-0.5 bg-black/40 rounded border border-white/10 text-slate-200 truncate">
-                              {f}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {product.compatible_machinery && product.compatible_machinery.length > 0 && (
-                      <div className="flex items-center gap-1.5 overflow-hidden">
-                        <span className="text-emerald-300 font-bold shrink-0">⚙️ เครื่องจักร:</span>
-                        <div className="flex gap-1 overflow-hidden truncate">
-                          {product.compatible_machinery.slice(0, 3).map((m: string, mIdx: number) => (
-                            <span key={mIdx} className="px-1.5 py-0.5 bg-black/40 rounded border border-emerald-500/30 text-emerald-300 truncate">
-                              {m}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                )}
               </div>
             </div>
 
-            {/* 3. BOTTOM CONTACT FOOTER (Height: 68px) */}
-            <div className="relative z-10 px-5 py-2.5 bg-black/50 border-t border-white/10 flex items-center justify-between text-[11px] shrink-0">
-              <div>
-                <div className="font-bold text-white flex items-center gap-2">
-                  <span>ฝ่ายขาย: คุณเอกชัย หาบ้านแท่น (Max) • 092-479-7666</span>
+            {/* 4. FLOATING 3-COLUMN GLASSMORPHISM CARD (Matching Reference Image) */}
+            <div className="relative z-10 mt-6 rounded-3xl bg-[#061715]/85 backdrop-blur-2xl border border-white/15 p-6 sm:p-7 shadow-2xl grid grid-cols-3 divide-x divide-white/15 text-center">
+              {/* Column 1 (Like "DATE: 2026 SEPT 1 - 3 / 10:00 - 17:00") */}
+              <div className="px-3 sm:px-4 flex flex-col items-center justify-center">
+                <div className="text-[11px] font-bold tracking-[0.18em] uppercase text-slate-400 mb-1.5 font-mono">
+                  {lang === "zh" ? "核心技术参数" : lang === "en" ? "SPECIFICATIONS" : "สเปกเครื่องจักร"}
+                </div>
+                <div className="text-2xl sm:text-3xl font-bold text-white tracking-tight font-mono">
+                  {topSpec1}
+                </div>
+                <div className="text-xs text-emerald-300 font-mono mt-1 truncate max-w-full">
+                  ความละเอียด: {topSpec2}
+                </div>
+                <div className="text-[10px] text-slate-400 font-mono mt-0.5 truncate max-w-full">
+                  ระบบ: {topSpec3}
+                </div>
+              </div>
+
+              {/* Column 2 (Center: Like "BOOTH NO. 234" in glowing gold font) */}
+              <div className="px-3 sm:px-4 flex flex-col items-center justify-center">
+                <div className="text-[11px] font-bold tracking-[0.18em] uppercase text-amber-400 mb-1.5 font-mono">
+                  {lang === "zh" ? "官方特惠价格" : lang === "en" ? "SPECIAL PRICE" : "ราคาพิเศษทางการ"}
+                </div>
+                <div className="text-3xl sm:text-4xl md:text-5xl font-extralight tracking-tight text-amber-400 font-mono drop-shadow-[0_0_20px_rgba(245,158,11,0.4)] leading-none">
+                  ฿{(product.sales_price || 0).toLocaleString()}
+                </div>
+                <div className="text-xs font-bold text-emerald-300 mt-1.5">
+                  {formatWarranty(product.warranty, lang).text}
                 </div>
                 <div className="text-[10px] text-slate-400 mt-0.5">
-                  สำนักงาน: 02-1307590-91 • จ-ศ 08.00-17.00 • บางพลี สมุทรปราการ
+                  ✓ ออกใบกำกับภาษีได้ 100%
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 shrink-0">
+              {/* Column 3 (Like "LOCATION: 123 ANYWHERE ST., ANY CITY") */}
+              <div className="px-3 sm:px-4 flex flex-col items-center justify-center">
+                <div className="text-[11px] font-bold tracking-[0.18em] uppercase text-slate-400 mb-1.5 font-mono">
+                  {lang === "zh" ? "咨询与预约" : lang === "en" ? "CONTACT / DEMO" : "ติดต่อฝ่ายขาย / นัดทดสอบ"}
+                </div>
+                <div className="text-xl sm:text-2xl font-bold text-emerald-300 tracking-tight font-mono">
+                  092-479-7666
+                </div>
+                <div className="text-xs text-slate-200 mt-1 font-semibold">
+                  คุณเอกชัย หาบ้านแท่น (Max)
+                </div>
                 <a
                   href="https://line.me/ti/p/htYYhK-o1q"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3.5 py-1.5 rounded-xl bg-[#06C755] hover:bg-[#05b34c] text-white text-[11px] font-bold flex items-center gap-1.5 shadow-md transition cursor-pointer"
+                  className="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#06C755] hover:bg-[#05b34c] text-white text-[11px] font-bold shadow-md transition cursor-pointer active:scale-95"
                 >
                   <MessageCircle className="w-3.5 h-3.5" />
-                  <span>LINE: คุณเอกชัย (Max)</span>
+                  <span>LINE: คุณเอกชัย ↗</span>
                 </a>
               </div>
+            </div>
+
+            {/* 5. MINIMALIST BOTTOM FOOTER (Matching "WWW.REALLYGREATSITE.COM" in Reference Photo) */}
+            <div className="relative z-10 pt-6 pb-2 text-center text-[10px] sm:text-[11px] font-mono tracking-[0.25em] uppercase text-slate-400/80 border-t border-white/5 mt-4">
+              CHICAI ELECTRIC (THAILAND) • WWW.CHICAIELECTRIC.COM • TEL 02-1307590-91
             </div>
           </div>
         ) : (
