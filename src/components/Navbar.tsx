@@ -61,18 +61,17 @@ export const Navbar: React.FC<NavbarProps> = () => {
                 className="h-full w-full object-contain rounded-lg sm:rounded-xl"
               />
             </div>
-            <div className="min-w-0">
+            <div className="hidden sm:block min-w-0">
               <div className="flex items-center gap-2">
                 <span className="text-sm sm:text-lg font-black text-slate-900 tracking-tight group-hover:text-[#219990] transition-colors truncate">
-                  <span className="sm:hidden">ฉี ไฉ่ อิเล็คทริค</span>
-                  <span className="hidden sm:inline">{t.companyName}</span>
+                  {t.companyName}
                 </span>
                 <span className="hidden xl:inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-[#219990]/10 text-[#145853] border border-[#219990]/20 uppercase tracking-wide">
                   <Sparkles className="w-2.5 h-2.5 text-[#219990]" />
                   {t.b2bBadge}
                 </span>
               </div>
-              <div className="text-[10px] sm:text-[11px] font-semibold text-slate-400 tracking-wide font-mono uppercase truncate hidden sm:block">
+              <div className="text-[10px] sm:text-[11px] font-semibold text-slate-400 tracking-wide font-mono uppercase truncate">
                 {t.companySubName}
               </div>
             </div>
