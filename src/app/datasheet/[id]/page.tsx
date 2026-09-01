@@ -333,6 +333,14 @@ export default function CatalogDatasheetPage() {
   const feature = product.key_features?.[lang] || product.key_features?.th || "";
   const imgUrl = getProductImage();
 
+  const catLabel = (() => {
+    const c = product.category;
+    if (c === "oil-filter") return lang === "zh" ? "工业滤油机" : lang === "en" ? "Oil Filter Machine" : "เครื่องกรองน้ำมัน";
+    if (c === "slag-remover") return lang === "zh" ? "除渣清理机" : lang === "en" ? "Slag Remover Machine" : "เครื่องกำจัดเศษโลหะ";
+    if (c === "oil-water-separator") return lang === "zh" ? "油水分离机" : lang === "en" ? "Oil-Water Separator" : "เครื่องแยกน้ำมันลอย";
+    return lang === "zh" ? "工业设备" : lang === "en" ? "Industrial Machine" : "เครื่องจักรอุตสาหกรรม";
+  })();
+
   const specLabels: Record<string, string> = {
     type: t.specType,
     flowRate: t.specFlowRate,
@@ -382,7 +390,7 @@ export default function CatalogDatasheetPage() {
             }`}
           >
             <span>🎨</span>
-            <span>{lang === "zh" ? "广告画册 (Poster)" : lang === "en" ? "Ad Poster Artwork" : "Artwork โฆษณา"}</span>
+            <span>{lang === "zh" ? "800x800 广告画册" : lang === "en" ? "800x800 Ad Artwork" : "Artwork 800x800 px"}</span>
           </button>
 
           <button
@@ -394,7 +402,7 @@ export default function CatalogDatasheetPage() {
             }`}
           >
             <span>📄</span>
-            <span>{lang === "zh" ? "技术参数表" : lang === "en" ? "Technical Datasheet" : "เอกสารสเปก"}</span>
+            <span>{lang === "zh" ? "A4 技术参数表" : lang === "en" ? "A4 Datasheet" : "เอกสารสเปก A4"}</span>
           </button>
         </div>
 
@@ -442,380 +450,248 @@ export default function CatalogDatasheetPage() {
       <div className="w-full flex justify-center overflow-x-auto pb-8">
         {viewMode === "poster" ? (
           /* ============================================================ */
-          /* PREMIUM ADVERTISING ARTWORK POSTER (สไตล์ Artwork โฆษณา)     */
+          /* 800x800 PX MACHINE ARTWORK (ขนาด 800x800 เน้นข้อมูลเครื่อง)  */
           /* ============================================================ */
           <div
             ref={catalogRef}
             id="catalog-flyer"
-            className="w-[760px] max-w-[760px] min-w-[760px] bg-gradient-to-b from-[#041a17] via-[#072a25] to-[#031512] text-white rounded-3xl shadow-2xl overflow-hidden border border-emerald-800/40 relative print:shadow-none print:rounded-none print:border-none print:w-full print:min-w-0"
+            className="w-[800px] h-[800px] min-w-[800px] min-h-[800px] max-w-[800px] max-h-[800px] box-border bg-gradient-to-b from-[#031513] via-[#072621] to-[#020e0c] text-white rounded-3xl shadow-2xl overflow-hidden border border-emerald-800/40 relative flex flex-col justify-between print:shadow-none print:rounded-none print:border-none print:w-full print:min-w-0"
           >
-            {/* Background Decorative Tech Grid & Radial Glows */}
-            <div className="absolute inset-0 bg-[radial-gradient(#219990_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
-            <div className="absolute -top-16 -right-16 w-96 h-96 bg-[#219990]/25 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute top-1/3 -left-20 w-80 h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-10 -right-10 w-96 h-96 bg-[#219990]/20 rounded-full blur-3xl pointer-events-none" />
+            {/* Background Decorative Tech Grid & Glows */}
+            <div className="absolute inset-0 bg-[radial-gradient(#219990_1px,transparent_1px)] [background-size:20px_20px] opacity-10 pointer-events-none" />
+            <div className="absolute -top-16 -right-16 w-80 h-80 bg-[#219990]/25 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-1/2 -left-20 w-80 h-80 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-10 -right-10 w-80 h-80 bg-[#219990]/20 rounded-full blur-3xl pointer-events-none" />
 
-            {/* Top Brand Banner & Official Tag */}
-            <div className="relative z-10 p-6 sm:p-8 border-b border-white/10 bg-black/35 backdrop-blur-xs">
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3.5">
-                  <div className="w-14 h-14 bg-white p-1.5 rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-950/60 shrink-0 border border-white/25">
-                    <img
-                      src="/chicailogo.jpg"
-                      alt="Chicai Logo"
-                      className="max-h-full max-w-full object-contain rounded-lg"
-                    />
-                  </div>
-                  <div>
-                    <div className="text-base sm:text-lg font-black tracking-tight leading-tight text-white flex items-center gap-2">
-                      <span>{t.companyName}</span>
-                      <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold border border-emerald-400/30">
-                        OFFICIAL
-                      </span>
-                    </div>
-                    <div className="text-xs font-bold text-emerald-400 font-mono mt-0.5">
-                      {t.companySubName}
-                    </div>
-                    <div className="text-[11px] text-slate-300 font-light mt-0.5">
-                      {t.footerTagline}
-                    </div>
-                  </div>
+            {/* 1. TOP HEADER (Height: 56px) */}
+            <div className="relative z-10 px-5 py-2.5 border-b border-white/10 bg-black/40 backdrop-blur-xs flex items-center justify-between shrink-0">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 bg-white p-1 rounded-xl flex items-center justify-center shadow-md shrink-0">
+                  <img
+                    src="/chicailogo.jpg"
+                    alt="Chicai Logo"
+                    className="max-h-full max-w-full object-contain rounded-md"
+                  />
                 </div>
-
-                <div className="text-right shrink-0">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 rounded-full text-[10px] font-black tracking-wider uppercase shadow-md shadow-amber-500/20">
-                    <span>★</span>
-                    <span>COMMERCIAL ARTWORK</span>
+                <div>
+                  <div className="text-sm font-black text-white flex items-center gap-2 leading-none">
+                    <span>{t.companyName}</span>
+                    <span className="px-1.5 py-0.5 rounded-sm bg-emerald-500/20 text-emerald-300 text-[9px] font-bold border border-emerald-400/30">
+                      OFFICIAL
+                    </span>
                   </div>
-                  <div className="text-[11px] text-emerald-300 font-mono font-bold mt-1.5">
-                    MODEL: {product.model}
+                  <div className="text-[10px] text-emerald-400 font-mono mt-0.5 leading-none">
+                    {t.companySubName}
                   </div>
                 </div>
               </div>
 
-              {/* Catchy Ad Tagline */}
-              <div className="mt-4 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 text-emerald-200 text-xs font-semibold border border-emerald-400/30 backdrop-blur-md">
-                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-                <span>
-                  {lang === "zh"
-                    ? "🔥 工业级高端品质 • 节能降耗 • 延长设备与油液寿命 70%+"
-                    : lang === "en"
-                    ? "🔥 Industrial Grade Quality • Cut Fluid & Maintenance Costs by 70%+"
-                    : "🔥 นวัตกรรมอุตสาหกรรมมาตรฐานสูง • ลดต้นทุนน้ำมันและของเหลวหล่อเย็นได้ทันที 70%"}
+              <div className="flex items-center gap-2">
+                <span className="px-2.5 py-1 bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 rounded-full text-[9px] font-black uppercase shadow-xs">
+                  ★ INDUSTRIAL SPECIFICATION
+                </span>
+                <span className="px-2.5 py-1 bg-white/10 text-emerald-300 rounded-full text-[10px] font-mono font-bold border border-white/15">
+                  MODEL: {product.model}
                 </span>
               </div>
             </div>
 
-            {/* Hero Stage Showcase: 3D Pedestal + Copy + Promo Price */}
-            <div className="relative z-10 p-6 sm:p-8">
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+            {/* 2. MIDDLE MACHINE BODY (Height: 676px, 2-Column Grid) */}
+            <div className="relative z-10 flex-1 p-5 grid grid-cols-12 gap-4 overflow-hidden">
+              {/* Left Column: Machine Stage & Commercial Price (5 Columns) */}
+              <div className="col-span-5 flex flex-col justify-between h-full space-y-3">
                 {/* 3D Spotlight Stage */}
-                <div className="md:col-span-5 relative flex flex-col items-center justify-center">
-                  <div className="relative w-full aspect-square max-w-[300px] rounded-3xl bg-gradient-to-b from-white/10 via-white/5 to-transparent p-5 border border-white/15 flex flex-col items-center justify-between shadow-2xl backdrop-blur-md overflow-hidden group">
-                    <div className="absolute inset-0 m-auto w-48 h-48 rounded-full bg-[#219990]/35 blur-2xl pointer-events-none" />
+                <div className="relative flex-1 rounded-2xl bg-gradient-to-b from-white/10 via-white/5 to-black/30 border border-white/15 p-3.5 flex flex-col items-center justify-between shadow-xl backdrop-blur-xs overflow-hidden">
+                  <div className="absolute inset-0 m-auto w-40 h-40 rounded-full bg-[#219990]/35 blur-2xl pointer-events-none" />
 
-                    {/* Top Badges */}
-                    <div className="w-full flex items-center justify-between gap-1 z-10">
-                      <span className="px-2.5 py-0.5 rounded-md bg-amber-400 text-slate-950 text-[10px] font-black shadow-md">
-                        ⚡ DEMO FREE
-                      </span>
-                      <span className="px-2.5 py-0.5 rounded-md bg-emerald-500/30 text-emerald-200 border border-emerald-400/40 text-[10px] font-bold">
-                        {product.lead_time || "พร้อมส่ง 1-3 วัน"}
-                      </span>
-                    </div>
+                  {/* Top Badges */}
+                  <div className="w-full flex items-center justify-between gap-1 z-10">
+                    <span className="px-2 py-0.5 rounded-md bg-amber-400 text-slate-950 text-[9px] font-black shadow-xs">
+                      ⚡ DEMO FREE
+                    </span>
+                    <span className="px-2 py-0.5 rounded-md bg-emerald-500/30 text-emerald-200 border border-emerald-400/40 text-[9px] font-bold">
+                      {product.lead_time || "พร้อมส่ง 1-3 วัน"}
+                    </span>
+                  </div>
 
-                    {/* Machine Photo */}
-                    <div className="relative z-10 w-full flex-1 flex items-center justify-center p-2">
-                      <img
-                        src={imgUrl}
-                        alt={name}
-                        className="max-h-[220px] max-w-full w-auto h-auto object-contain drop-shadow-[0_20px_25px_rgba(0,0,0,0.7)] hover:scale-105 transition-transform duration-500"
-                        onError={(e) => {
-                          (e.target as any).src = "/chicailogo.jpg";
-                        }}
-                      />
-                    </div>
+                  {/* Machine Photo */}
+                  <div className="relative z-10 w-full flex-1 flex items-center justify-center p-1">
+                    <img
+                      src={imgUrl}
+                      alt={name}
+                      className="max-h-[220px] max-w-full w-auto h-auto object-contain drop-shadow-[0_15px_20px_rgba(0,0,0,0.8)]"
+                      onError={(e) => {
+                        (e.target as any).src = "/chicailogo.jpg";
+                      }}
+                    />
+                  </div>
 
-                    {/* Stage Line */}
-                    <div className="w-full pt-2.5 border-t border-white/15 flex items-center justify-between text-[11px] z-10">
-                      <span className="font-mono font-bold text-slate-300">
-                        SKU: {product.sku || product.model}
-                      </span>
-                      <span className="text-emerald-300 font-bold text-[10px]">
-                        {product.variant ? translateVariant(product.variant, lang) : "มาตรฐาน"}
-                      </span>
-                    </div>
+                  {/* Stage Bottom Bar */}
+                  <div className="w-full pt-2 border-t border-white/15 flex items-center justify-between text-[10px] z-10">
+                    <span className="font-mono font-bold text-slate-300">
+                      SKU: {product.sku || product.model}
+                    </span>
+                    <span className="text-emerald-300 font-bold">
+                      {product.variant ? translateVariant(product.variant, lang) : "มาตรฐาน"}
+                    </span>
                   </div>
                 </div>
 
-                {/* Ad Value Proposition & Commercial Price */}
-                <div className="md:col-span-7 space-y-4">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="px-3 py-1 bg-white/10 text-emerald-300 rounded-full text-xs font-mono font-bold border border-white/15">
-                      {product.model}
+                {/* Compact Special Price Card */}
+                <div className="p-3 rounded-2xl bg-gradient-to-r from-emerald-950 via-[#0d3b37] to-[#145853] border border-emerald-400/40 shadow-lg shrink-0">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-[9px] text-emerald-300 font-bold uppercase tracking-wider flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                        <span>{lang === "zh" ? "特惠售价" : lang === "en" ? "Special Price" : "ราคาพิเศษ (ไม่รวม VAT)"}</span>
+                      </div>
+                      <div className="text-2xl font-black text-white tracking-tight mt-0.5">
+                        ฿{(product.sales_price || 0).toLocaleString()}
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="px-2.5 py-0.5 bg-white text-slate-900 text-[10px] font-black rounded-lg shadow-xs">
+                        {formatWarranty(product.warranty, lang).text}
+                      </div>
+                      <div className="text-[9px] text-emerald-200 mt-1 font-medium">
+                        ✓ หักค่าใช้จ่ายบริษัทได้
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Title, Specs & Machine Parameters (7 Columns) */}
+              <div className="col-span-7 flex flex-col justify-between h-full space-y-2.5 overflow-hidden">
+                {/* Product Name & Short Info */}
+                <div>
+                  <div className="flex items-center gap-1.5 mb-1 flex-wrap">
+                    <span className="px-2 py-0.5 bg-[#219990] text-white rounded-md text-[10px] font-bold">
+                      {catLabel}
                     </span>
                     {product.variant && (
-                      <span className="px-3 py-1 bg-[#219990] text-white rounded-full text-xs font-bold shadow-md shadow-[#219990]/30">
+                      <span className="px-2 py-0.5 bg-white/15 text-emerald-200 rounded-md text-[10px] font-bold">
                         {translateVariant(product.variant, lang)}
                       </span>
                     )}
-                    <span className="px-2.5 py-1 bg-amber-400/20 text-amber-300 border border-amber-400/40 rounded-full text-[10px] font-bold">
-                      ✓ เครื่องแท้ 100%
+                    <span className="px-2 py-0.5 bg-amber-400/20 text-amber-300 rounded-md text-[9px] font-bold">
+                      ✓ ลดต้นทุน 70%+
                     </span>
                   </div>
 
-                  <h1 className="text-2xl sm:text-3xl font-black text-white leading-snug tracking-tight">
+                  <h1 className="text-xl font-black text-white leading-tight line-clamp-2">
                     {name}
                   </h1>
 
                   {feature && (
-                    <p className="text-xs sm:text-sm text-emerald-100/90 leading-relaxed font-light">
+                    <p className="text-[11px] text-emerald-100/80 leading-snug mt-1 line-clamp-2">
                       {feature}
                     </p>
                   )}
+                </div>
 
-                  {/* 3 Key Selling Bullet Points */}
-                  <div className="space-y-1.5 text-xs text-slate-200 font-medium">
-                    <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>
-                        {lang === "zh"
-                          ? "循环再生油液与切削液，在线过滤无需停机"
-                          : lang === "en"
-                          ? "Online fluid reclamation: Recycles fluid without downtime"
-                          : "กรองฟื้นฟูของเหลวแบบ Online หมุนเวียนใช้ใหม่ได้ทันทีโดยไม่ต้องหยุดไลน์ผลิต"}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>
-                        {lang === "zh"
-                          ? "有效延长刀具、精密模具与液压系统使用寿命 2–3 倍"
-                          : lang === "en"
-                          ? "Extends CNC cutting tools & hydraulic components lifespan by 2–3x"
-                          : "ลดการสึกหรอ ยืดอายุเครื่องมือตัด CNC และวาล์วไฮดรอลิก 2–3 เท่า"}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>
-                        {lang === "zh"
-                          ? "快速收回投资成本，一般 3–6 个月即可回本"
-                          : lang === "en"
-                          ? "Fast ROI: Payback period typically within 3 to 6 months"
-                          : "จุดคุ้มทุนไวมาก คืนทุนค่าเครื่องจักรภายใน 3–6 เดือน ประหยัดหลักแสนต่อปี"}
-                      </span>
-                    </div>
+                {/* 4 Feature Badges (2x2 grid) */}
+                <div className="grid grid-cols-2 gap-1.5 text-[10px]">
+                  <div className="p-1.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-1.5">
+                    <Droplets className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                    <span className="truncate font-semibold text-slate-200">{t.h1Title}</span>
+                  </div>
+                  <div className="p-1.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-1.5">
+                    <Target className="w-3.5 h-3.5 text-[#219990] shrink-0" />
+                    <span className="truncate font-semibold text-slate-200">{t.h2Title}</span>
+                  </div>
+                  <div className="p-1.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-1.5">
+                    <ShieldCheck className="w-3.5 h-3.5 text-amber-300 shrink-0" />
+                    <span className="truncate font-semibold text-slate-200">{formatWarranty(product.warranty, lang).text}</span>
+                  </div>
+                  <div className="p-1.5 rounded-xl bg-white/5 border border-white/10 flex items-center gap-1.5">
+                    <Wrench className="w-3.5 h-3.5 text-blue-300 shrink-0" />
+                    <span className="truncate font-semibold text-slate-200">{t.h4Title}</span>
+                  </div>
+                </div>
+
+                {/* Technical Specifications Grid (Core Machine Specs) */}
+                <div className="flex-1 flex flex-col justify-start">
+                  <div className="flex items-center gap-1.5 mb-1 pb-1 border-b border-white/15">
+                    <Gauge className="w-3.5 h-3.5 text-emerald-400" />
+                    <h3 className="text-[10px] font-black text-white uppercase tracking-wider">
+                      {t.flyerSpecsTitle}
+                    </h3>
                   </div>
 
-                  {/* Commercial Special Price Banner */}
-                  <div className="p-4 bg-gradient-to-r from-emerald-950/90 via-[#0d3b37] to-[#145853]/90 border-2 border-emerald-400/40 rounded-2xl flex items-center justify-between shadow-xl">
-                    <div>
-                      <div className="text-[10px] text-emerald-300 font-bold uppercase tracking-wider flex items-center gap-1.5">
-                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                        <span>{lang === "zh" ? "特惠促销价格" : lang === "en" ? "Special Promotional Price" : "ราคาโปรโมชั่นพิเศษ"}</span>
-                      </div>
-                      <div className="text-2xl sm:text-3xl font-black text-white tracking-tight mt-0.5">
-                        ฿{(product.sales_price || 0).toLocaleString()}
-                        <span className="text-xs font-normal text-emerald-200 ml-1.5 font-sans">
-                          {t.exclVat}
+                  <div className="grid grid-cols-1 gap-1 text-[10px]">
+                    {specsList.slice(0, 5).map((s, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center justify-between px-2 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg"
+                      >
+                        <span className="text-slate-400 font-medium">
+                          {specLabels[s.key] || s.key}
+                        </span>
+                        <span className="font-bold text-white text-right font-mono max-w-[60%] truncate">
+                          {s.value}
                         </span>
                       </div>
-                    </div>
-                    <div className="text-right">
-                      <div className="px-3 py-1 bg-white text-slate-900 text-[11px] font-black rounded-xl shadow-md">
-                        {formatWarranty(product.warranty, lang).text}
+                    ))}
+                  </div>
+                </div>
+
+                {/* Applicable Fluids & Compatible Machinery Chips */}
+                {((product.applicable_fluids && product.applicable_fluids.length > 0) ||
+                  (product.compatible_machinery && product.compatible_machinery.length > 0)) && (
+                  <div className="p-2 rounded-xl bg-white/5 border border-white/10 space-y-1 text-[10px]">
+                    {product.applicable_fluids && product.applicable_fluids.length > 0 && (
+                      <div className="flex items-center gap-1.5 overflow-hidden">
+                        <span className="text-emerald-300 font-bold shrink-0">💧 ของเหลว:</span>
+                        <div className="flex gap-1 overflow-hidden truncate">
+                          {product.applicable_fluids.slice(0, 3).map((f: string, fIdx: number) => (
+                            <span key={fIdx} className="px-1.5 py-0.5 bg-black/40 rounded border border-white/10 text-slate-200 truncate">
+                              {f}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                      <div className="text-[10px] text-emerald-200 mt-1 font-medium">
-                        ✓ ออกใบกำกับภาษีได้ 100%
+                    )}
+
+                    {product.compatible_machinery && product.compatible_machinery.length > 0 && (
+                      <div className="flex items-center gap-1.5 overflow-hidden">
+                        <span className="text-emerald-300 font-bold shrink-0">⚙️ เครื่องจักร:</span>
+                        <div className="flex gap-1 overflow-hidden truncate">
+                          {product.compatible_machinery.slice(0, 3).map((m: string, mIdx: number) => (
+                            <span key={mIdx} className="px-1.5 py-0.5 bg-black/40 rounded border border-emerald-500/30 text-emerald-300 truncate">
+                              {m}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 4 Commercial Pillars */}
-            <div className="relative z-10 px-6 sm:px-8 py-2">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-400/40 transition flex flex-col items-center text-center backdrop-blur-xs">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-2 shadow-inner">
-                    <Droplets className="w-5 h-5" />
-                  </div>
-                  <div className="font-black text-white text-xs">{t.h1Title}</div>
-                  <div className="text-[10px] text-slate-300 mt-1 leading-snug">{t.h1Desc}</div>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-400/40 transition flex flex-col items-center text-center backdrop-blur-xs">
-                  <div className="w-10 h-10 rounded-xl bg-[#219990]/20 text-[#219990] flex items-center justify-center mb-2 shadow-inner">
-                    <Target className="w-5 h-5" />
-                  </div>
-                  <div className="font-black text-white text-xs">{t.h2Title}</div>
-                  <div className="text-[10px] text-slate-300 mt-1 leading-snug">{t.h2Desc}</div>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-400/40 transition flex flex-col items-center text-center backdrop-blur-xs">
-                  <div className="w-10 h-10 rounded-xl bg-amber-400/20 text-amber-300 flex items-center justify-center mb-2 shadow-inner">
-                    <ShieldCheck className="w-5 h-5" />
-                  </div>
-                  <div className="font-black text-white text-xs">{formatWarranty(product.warranty, lang).text}</div>
-                  <div className="text-[10px] text-slate-300 mt-1 leading-snug">{t.h3Desc}</div>
-                </div>
-
-                <div className="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-400/40 transition flex flex-col items-center text-center backdrop-blur-xs">
-                  <div className="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-300 flex items-center justify-center mb-2 shadow-inner">
-                    <Wrench className="w-5 h-5" />
-                  </div>
-                  <div className="font-black text-white text-xs">{t.h4Title}</div>
-                  <div className="text-[10px] text-slate-300 mt-1 leading-snug">{t.h4Desc}</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Specifications Matrix */}
-            <div className="relative z-10 px-6 sm:px-8 py-5">
-              <div className="flex items-center gap-2 mb-3.5 pb-2 border-b border-white/15">
-                <Gauge className="w-4 h-4 text-emerald-400" />
-                <h3 className="text-xs font-black text-white uppercase tracking-wider">
-                  {t.flyerSpecsTitle}
-                </h3>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                {specsList.map((s, idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center justify-between p-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition"
-                  >
-                    <span className="text-slate-400 text-[11px] font-medium">
-                      {specLabels[s.key] || s.key}
-                    </span>
-                    <span className="font-bold text-white text-right text-[11px] max-w-[62%] leading-tight break-words font-mono">
-                      {s.value}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Applicable Fluids & Factory Machinery */}
-            {((product.applicable_fluids && product.applicable_fluids.length > 0) ||
-              (product.compatible_machinery && product.compatible_machinery.length > 0)) && (
-              <div className="relative z-10 mx-6 sm:mx-8 mb-4 p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3">
-                {product.applicable_fluids && product.applicable_fluids.length > 0 && (
-                  <div>
-                    <div className="text-[11px] font-bold text-emerald-300 flex items-center gap-1.5 mb-1.5">
-                      <span>💧</span>
-                      <span>
-                        {lang === "th"
-                          ? "ประเภทน้ำมันและของเหลวที่รองรับ (Applicable Fluids)"
-                          : lang === "zh"
-                          ? "适用油液与化学品类型 (Applicable Fluids)"
-                          : "Applicable Fluid Types"}
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {product.applicable_fluids.map((fluid: string, fIdx: number) => (
-                        <span
-                          key={fIdx}
-                          className="px-2.5 py-1 bg-black/40 rounded-lg border border-white/15 text-slate-200 text-[11px] font-medium"
-                        >
-                          {fluid}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {product.compatible_machinery && product.compatible_machinery.length > 0 && (
-                  <div>
-                    <div className="text-[11px] font-bold text-emerald-300 flex items-center gap-1.5 mb-1.5">
-                      <span>⚙️</span>
-                      <span>
-                        {lang === "th"
-                          ? "เครื่องจักรในโรงงานที่ใช้งานร่วมกันได้ (Compatible Machinery)"
-                          : lang === "zh"
-                          ? "适用机床与工业设备 (Compatible Machinery)"
-                          : "Compatible Factory Machinery"}
-                      </span>
-                    </div>
-                    <div className="flex flex-wrap gap-1.5">
-                      {product.compatible_machinery.map((mach: string, mIdx: number) => (
-                        <span
-                          key={mIdx}
-                          className="px-2.5 py-1 bg-black/40 rounded-lg border border-emerald-500/30 text-emerald-300 text-[11px] font-medium"
-                        >
-                          {mach}
-                        </span>
-                      ))}
-                    </div>
+                    )}
                   </div>
                 )}
               </div>
-            )}
-
-            {/* Sales Closing Banner & Direct Contact */}
-            <div className="relative z-10 m-6 sm:m-8 p-6 rounded-3xl bg-gradient-to-r from-emerald-950 via-slate-900 to-emerald-950 border border-emerald-400/40 text-white shadow-2xl">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-5 text-center md:text-left">
-                <div className="space-y-1.5 max-w-xl">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#219990] text-white text-[10px] font-black uppercase tracking-wider shadow-sm">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>{t.ctaInterested}</span>
-                  </div>
-                  <div className="text-base sm:text-lg font-black text-white">
-                    {t.ctaContactTitle}
-                  </div>
-                  <div className="text-xs text-slate-300 font-light">
-                    {t.ctaContactDesc}
-                  </div>
-                  <div className="pt-2 text-[11px] text-slate-400 space-y-0.5">
-                    <div>
-                      {lang === "zh"
-                        ? "地址: 75/2 3楼 12组 Bang Phli Yai, Bang Phli, Samut Prakan 10540"
-                        : lang === "en"
-                        ? "Office: 75/2 3rd Fl., Moo 12, Bang Phli Yai, Bang Phli, Samut Prakan 10540"
-                        : "สำนักงาน: 75/2 ชั้นที่ 3 หมู่ที่ 12 ต.บางพลีใหญ่ อ.บางพลี จ.สมุทรปราการ 10540"}
-                    </div>
-                    <div>
-                      {lang === "zh"
-                        ? "电话: 02-1307590-91 • Email: akachai.chaicai@gmail.com • 工作时间: 周一至五 08:00-17:00"
-                        : lang === "en"
-                        ? "Tel: 02-1307590-91 • Email: akachai.chaicai@gmail.com • Mon - Fri: 08:00 - 17:00"
-                        : "โทร: 02-1307590-91 • Email: akachai.chaicai@gmail.com • เวลาทำการ: จ-ศ 08.00-17.00"}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Quick Contact Badges */}
-                <div className="flex flex-col sm:flex-row items-center gap-2.5 shrink-0">
-                  <a
-                    href="https://line.me/ti/p/htYYhK-o1q"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2.5 rounded-2xl bg-[#06C755] hover:bg-[#05b34c] text-white text-xs font-bold flex items-center gap-2 shadow-lg shadow-[#06C755]/30 transition active:scale-95 touch-manipulation cursor-pointer"
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                    <span>
-                      {lang === "zh" ? "LINE: Max (คุณเอกชัย)" : lang === "en" ? "LINE: Max (Ekachai)" : "LINE: คุณเอกชัย (Max)"}
-                    </span>
-                  </a>
-                  <a
-                    href="tel:0924797666"
-                    className="px-4 py-2.5 rounded-2xl bg-white/15 hover:bg-white/25 border border-white/20 text-white text-xs font-bold flex items-center gap-2 transition active:scale-95 touch-manipulation cursor-pointer"
-                    title="โทรหาฝ่ายขายทันที"
-                  >
-                    <Phone className="w-4 h-4 text-emerald-300" />
-                    <span>
-                      {lang === "zh" ? "092-479-7666 (Max)" : lang === "en" ? "092-479-7666 (Max)" : "092-479-7666 (ฝ่ายขายตรง)"}
-                    </span>
-                  </a>
-                </div>
-              </div>
             </div>
 
-            {/* Footer Stamp */}
-            <div className="pb-6 text-center text-[10px] text-slate-500 font-mono">
-              © {new Date().getFullYear()} {t.companySubName} • OFFICIAL INDUSTRIAL CATALOG FLYER • ALL RIGHTS RESERVED
+            {/* 3. BOTTOM CONTACT FOOTER (Height: 68px) */}
+            <div className="relative z-10 px-5 py-2.5 bg-black/50 border-t border-white/10 flex items-center justify-between text-[11px] shrink-0">
+              <div>
+                <div className="font-bold text-white flex items-center gap-2">
+                  <span>ฝ่ายขาย: คุณเอกชัย หาบ้านแท่น (Max) • 092-479-7666</span>
+                </div>
+                <div className="text-[10px] text-slate-400 mt-0.5">
+                  สำนักงาน: 02-1307590-91 • จ-ศ 08.00-17.00 • บางพลี สมุทรปราการ
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <a
+                  href="https://line.me/ti/p/htYYhK-o1q"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-1.5 rounded-xl bg-[#06C755] hover:bg-[#05b34c] text-white text-[11px] font-bold flex items-center gap-1.5 shadow-md transition cursor-pointer"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>LINE: คุณเอกชัย (Max)</span>
+                </a>
+              </div>
             </div>
           </div>
         ) : (
